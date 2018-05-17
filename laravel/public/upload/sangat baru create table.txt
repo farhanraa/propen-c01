@@ -1,0 +1,417 @@
+CREATE TABLE CABANG(
+kode_cabang VARCHAR(7) PRIMARY KEY,
+nama_cabang VARCHAR(52) NOT NULL,
+isAktif boolean NOT NULL,
+contact_person VARCHAR(102),
+no_handphone VARCHAR(102)
+);
+
+CREATE TABLE ABSENSI(
+id_fingerprint VARCHAR(10) PRIMARY KEY,
+tanggal date NOT NULL,
+jam_datang time NOT NULL,
+jam_pulang time NOT NULL,
+status VARCHAR(52) NOT NULL
+);
+
+CREATE TABLE GOLONGAN(
+kode_golongan VARCHAR(7) PRIMARY KEY,
+nama_golongan VARCHAR(27) NOT NULL,
+isAktif BOOLEAN NOT NULL
+);
+
+CREATE TABLE DEPARTEMEN(
+kode_departemen VARCHAR(27) PRIMARY KEY,
+nama_departemen VARCHAR(52) NOT NULL,
+sub_departemen VARCHAR(52) NOT NULL,
+isAktif boolean NOT NULL
+);
+
+CREATE TABLE EMPLOYEE(
+nik_employee VARCHAR(10) PRIMARY KEY,
+nama  VARCHAR(102) NOT NULL,
+tanggal_lahir date NOT NULL,
+tempat_lahir VARCHAR(27) NOT NULL,
+jenis_kelamin char(1) NOT NULL,
+tinggi float,
+golongan_darah char(2) NOT NULL,
+agama VARCHAR(9) NOT NULL,
+berat_badan DOUBLE,
+no_dplk INT NOT NULL,
+no_bpjs INT NOT NULL,
+no_npwp INT,
+no_telepon INT,
+no_jamsostek INT,
+no_handphone INT NOT NULL,
+jalan_identitas VARCHAR(52) NOT NULL,
+kota_identitas VARCHAR(52) NOT NULL,
+kode_pos_identitas VARCHAR(52) NOT NULL,
+provinsi_identitas VARCHAR(12) NOT NULL,
+kode_pos_tempat_tinggal VARCHAR(12) NOT NULL,
+kota_tempat_tinggal VARCHAR(52) NOT NULL,
+jalan_tempat_tinggal VARCHAR(52) NOT NULL,
+provinsi_tempat_tinggal VARCHAR(27) NOT NULL,
+foto MEDIUMBLOB,
+email_perusahaan TEXT,
+email TEXT NOT NULL,
+status_perkawinan VARCHAR(52) NOT NULL,
+jenis_identitas VARCHAR(52) NOT NULL,
+no_identitas INT NOT NULL UNIQUE,
+id_departemen VARCHAR(27) NOT NULL,
+id_cabang VARCHAR(7) NOT NULL,
+id_golongan VARCHAR(7) NOT NULL,
+id_fingerprint VARCHAR(10) NOT NULL, 
+status VARCHAR(51) NOT NULL,
+FOREIGN KEY (id_departemen) REFERENCES DEPARTEMEN(kode_departemen) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_cabang) REFERENCES CABANG(kode_cabang) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_fingerprint) REFERENCES ABSENSI(id_fingerprint) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_golongan) REFERENCES GOLONGAN(kode_golongan) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE BANK(
+id INT AUTO_INCREMENT,
+no_rekening_bank VARCHAR(27),
+nik_employee VARCHAR(10) NOT NULL,
+nama_rekening VARCHAR(102) NOT NULL,
+nama_bank VARCHAR(27) NOT NULL,
+informasi_bank VARCHAR(102) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE DOKUMEN(
+id INT AUTO_INCREMENT,
+nama_dokumen VARCHAR(102) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+nama_file MEDIUMBLOB NOT NULL,
+keterangan VARCHAR(102),
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE KONTRAK_PERCOBAAN(
+id INT AUTO_INCREMENT,
+jenis VARCHAR(27) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+keterangan VARCHAR(102) NOT NULL,
+jangka_waktu INT NOT NULL,
+tanggal_awal date NOT NULL,
+tanggal_akhir date NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE LISENSI(
+id INT AUTO_INCREMENT,
+nomor VARCHAR(27) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+tanggal date NOT NULL,
+jenis_lisensi VARCHAR(27) NOT NULL,
+tanggal_hangus date NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE PENDIDIKAN(
+id INT AUTO_INCREMENT,
+nama_sekolah VARCHAR(102) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+tingkat_pendidikan VARCHAR(5) NOT NULL,
+masa_pendidikan INT NOT NULL,
+jurusan VARCHAR(27),
+is_lulus boolean NOT NULL,
+fakultas VARCHAR(27) NOT NULL,
+ipk CHAR(5) NOT NULL,
+catatan VARCHAR(102),
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE SERTIFIKASI(
+id INT AUTO_INCREMENT,
+nik_employee VARCHAR(10) NOT NULL,
+nama_sertifikat VARCHAR(102) NOT NULL,
+tahun_sertifikat int NOT NULL,
+penyelenggara VARCHAR(102) NOT NULL,
+catatan_sertifikat VARCHAR(102),
+tingkat_sertifikat VARCHAR(27) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE SURAT(
+id INT AUTO_INCREMENT,
+nomor INT NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+jenis VARCHAR(52) NOT NULL,
+tanggal date NOT NULL,
+informasi VARCHAR(102) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE PENGALAMAN_KERJA(
+id INT AUTO_INCREMENT,
+nama_perusahaan VARCHAR(102) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+jabatan VARCHAR(27) NOT NULL,
+jabatan_atasan_langsung VARCHAR(27),
+ringkasan_jenis_pekerjaan VARCHAR(102) NOT NULL,
+alasan_keluar VARCHAR(102) NOT NULL,
+gaji_terakhir VARCHAR(27) NOT NULL,
+periode VARCHAR(10) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE KELUARGA(
+id INT AUTO_INCREMENT,
+nama VARCHAR(102) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+hubungan VARCHAR(27) NOT NULL,
+pendidikan VARCHAR(27),
+tempat_lahir VARCHAR(52) NOT NULL,
+tanggal_lahir date NOT NULL,
+jenis_kelamin char(1) NOT NULL,
+pekerjaan VARCHAR(52),
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE KELUARGA_ORANG_TUA(
+id INT AUTO_INCREMENT,
+nama VARCHAR(102) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+hubungan VARCHAR(27) NOT NULL,
+pendidikan VARCHAR(27),
+tempat_lahir VARCHAR(52) NOT NULL,
+tanggal_lahir date NOT NULL,
+jenis_kelamin char(1) NOT NULL,
+pekerjaan VARCHAR(52),
+no_telepon INT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE LAPORAN_PSIKOTES_DAN_TES_KESEHATAN(
+id INT AUTO_INCREMENT,
+hasil_psikotes MEDIUMBLOB NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+tgl_psikotes date NOT NULL,
+tgl_terima_psikotes date NOT NULL,
+tgl_medical_checkup date NOT NULL,
+tgl_terima_medical_checkup date NOT NULL,
+hasil_medical_checkup MEDIUMBLOB NOT NULL,
+masalah_kesehatan VARCHAR(52),
+uraian TEXT,
+saran TEXT,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE PENGALAMAN_BERORGANISASI(
+id INT AUTO_INCREMENT,
+nama_organisasi VARCHAR(102) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+jenis_organisasi VARCHAR(27) NOT NULL,
+jabatan VARCHAR(27) NOT NULL,
+tahun_aktif VARCHAR(12) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE HOBI_DAN_PRESTASI(
+id INT AUTO_INCREMENT,
+hobi VARCHAR(102) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+prestasi VARCHAR(102) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE KONTAK_DARURAT(
+id INT AUTO_INCREMENT,
+nama_kontak VARCHAR(102) NOT NULL,
+hubungan_kontak VARCHAR(52) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+no_hp_kontak INT NOT NULL,
+no_telp_kontak INT,
+alamat_kontak VARCHAR(102) NOT NULL,
+kota_kontak VARCHAR(27) NOT NULL,
+provinsi_kontak VARCHAR(27) NOT NULL,
+kode_pos_kontak VARCHAR(12) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE KEDISIPLINAN(
+id INT AUTO_INCREMENT,
+masa_berlaku int NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+jenis VARCHAR(52) NOT NULL,
+subjek VARCHAR(102) NOT NULL,
+review TEXT,
+keterangan TEXT,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE KEMAMPUAN_BAHASA(
+id INT AUTO_INCREMENT,
+nama_bahasa VARCHAR(102) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+kemampuan_berbicara VARCHAR(17) NOT NULL,
+kemampuan_menulis VARCHAR(17) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE JABATAN (
+id INT AUTO_INCREMENT,
+nama_jabatan VARCHAR(52) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+bagian VARCHAR(52),
+posisi VARCHAR(52) NOT NULL,
+tree_sales VARCHAR(102) NOT NULL,
+atasan_langsung VARCHAR(52) NOT NULL,
+tanggal_masuk date NOT NULL,
+tanggal_pengangkatan date NOT NULL,
+tanggal_keluar date NOT NULL,
+status_karyawan VARCHAR(52) NOT NULL,
+alasan_berhenti TEXT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE ATTENDANCE(
+id INT AUTO_INCREMENT,
+nik_employee VARCHAR(10) NOT NULL,
+jenis VARCHAR(52) NOT NULL,
+tanggal_permohonan date NOT NULL,
+waktu time NOT NULL,
+alasan text NOT NULL,
+status VARCHAR(52) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE OVERTIME(
+id INT AUTO_INCREMENT,
+nik_employee VARCHAR(10) NOT NULL,
+tanggal date NOT NULL,
+waktu_mulai time NOT NULL,
+waktu_selesai time NOT NULL,
+alasan VARCHAR(102) NOT NULL,
+status VARCHAR(52) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE LOGIN(
+id INT AUTO_INCREMENT,
+nik_employee VARCHAR(10) NOT NULL,
+username VARCHAR(102) NOT NULL,
+password VARCHAR(102) NOT NULL,
+role VARCHAR(102) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
+CREATE TABLE MUTASI(
+id INT AUTO_INCREMENT,
+jenis_mutasi VARCHAR(27) NOT NULL,
+nik_employee VARCHAR(10) NOT NULL,
+branch VARCHAR(7) NOT NULL,
+tanggal_diterima_surat date NOT NULL,
+id_departemen VARCHAR(27) NOT NULL,
+job_title VARCHAR(27) NOT NULL,
+tanggal_efektif date NOT NULL,
+nomor_surat VARCHAR(27) NOT NULL,
+tanggal_surat date NOT NULL,
+informasi TEXT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (id_departemen) REFERENCES DEPARTEMEN(kode_departemen) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (branch) REFERENCES CABANG(kode_cabang) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE JENIS_CUTI(
+nik_employee VARCHAR(10) NOT NULL,
+id_cuti VARCHAR(10) PRIMARY KEY,
+jenis_cuti VARCHAR(52) NOT NULL,
+sisa_cuti char(3) NOT NULL,
+tanggal_awal date NOT NULL,
+tanggal_akhir date NOT NULL,
+tanggal_hangus date NOT NULL,
+pegawai_pengganti VARCHAR(102) NOT NULL,
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE CUTI(
+id INT AUTO_INCREMENT,
+nik_employee VARCHAR(10) NOT NULL,
+id_leave VARCHAR(10) NOT NULL,
+jenis VARCHAR(52) NOT NULL,
+tanggal_mulai date NOT NULL,
+tanggal_selesai date NOT NULL,
+alasan text NOT NULL,
+status VARCHAR(10) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (id_leave) REFERENCES JENIS_CUTI(id_cuti) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE RULES_OF_COST_CLAIM(
+id_rules_cost VARCHAR(7) PRIMARY KEY,
+kode_biaya VARCHAR(12) NOT NULL,
+kode_golongan VARCHAR(7) NOT NULL,
+FOREIGN KEY (kode_golongan) REFERENCES GOLONGAN(kode_golongan) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE RULES_CLAIM (
+id_claim VARCHAR(12) PRIMARY KEY,
+jenis VARCHAR(52) NOT NULL,
+kode_rules_cost VARCHAR(7) NOT NULL,
+nominal_claim varchar(52) NOT NULL,
+tanggal_awal date NOT NULL,
+tanggal_akhir date NOT NULL,
+tanggal_hangus date NOT NULL,
+FOREIGN KEY (kode_rules_cost) REFERENCES RULES_OF_COST_CLAIM(id_rules_cost) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE DATA_CLAIM( 
+id INT AUTO_INCREMENT,
+kode_claim VARCHAR(12) NOT NULL, 
+nik_employee VARCHAR(10) NOT NULL, 
+tanggal_transaksi date NOT NULL, 
+sisa_claim VARCHAR(102) NOT NULL, 
+keterangan TEXT NOT NULL, 
+PRIMARY KEY (id),
+FOREIGN KEY (kode_claim) REFERENCES RULES_CLAIM(id_claim) ON DELETE CASCADE ON UPDATE CASCADE, 
+FOREIGN KEY (nik_employee) REFERENCES EMPLOYEE(nik_employee) ON DELETE CASCADE ON UPDATE CASCADE 
+);
+
+
+CREATE TABLE TREN(
+id_tren int NOT NULL,
+id_data_claim INT NOT NULL,
+id_cuti INT NOT NULL,
+id_overtime INT NOT NULL,
+id_attendance INT NOT NULL,
+PRIMARY KEY (id_tren),
+FOREIGN KEY (id_data_claim) REFERENCES DATA_CLAIM(id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_cuti) REFERENCES CUTI(id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_overtime) REFERENCES OVERTIME(id) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_attendance) REFERENCES ATTENDANCE(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
+
