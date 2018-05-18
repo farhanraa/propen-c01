@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class LoginController extends Controller
 {
@@ -28,6 +29,8 @@ class LoginController extends Controller
     	}
 
     	else{
+            
+            echo DB::table('users')->get();
     		echo "Email atau password salah";
     		return view('login');
     	}
