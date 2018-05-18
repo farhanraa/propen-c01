@@ -44,7 +44,7 @@
              "Illuminate\\Foundation\\ComposerScripts::postInstall",
              "php artisan clear-compiled",
              "php artisan optimize",
-             "php artisa migrate --force",
+             "php artisan migrate --force",
              "php artisan db:seed",
              "chmod -R 777 public/"
          ],
