@@ -81,7 +81,7 @@ class LeaveController extends Controller
 
         //ubah format tanggal
         $tanggal = $request->input('tanggalMulai');
-        $split_tanggal = explode("/", $tanggal);
+        $split_tanggal = explode("-", $tanggal);
         $tahun = $split_tanggal[0];
         $bulan = $split_tanggal[1]; 
         $hari = $split_tanggal[2];
@@ -89,7 +89,7 @@ class LeaveController extends Controller
 
         //ubah format tanggal
         $tanggal = $request->input('tanggalSelesai');
-        $split_tanggal = explode("/", $tanggal);
+        $split_tanggal = explode("-", $tanggal);
         $tahun = $split_tanggal[0];
         $bulan = $split_tanggal[1]; 
         $hari = $split_tanggal[2];
