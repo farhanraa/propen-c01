@@ -21,7 +21,7 @@ class ReportSeeder extends Seeder
         'total_pengajuan_diterima' => '12',
         'total_pengajuan_ditolak' => '2',
         'total_pengajuan_dibatalkan' => '6',
-        'total_nominal' => '-'
+        'total_nominal' => '0'
     	]); 
         DB::table('report')->insert([
         'kode_report' => 'R2042018',
@@ -33,7 +33,7 @@ class ReportSeeder extends Seeder
         'total_pengajuan_diterima' => '5',
         'total_pengajuan_ditolak' => '0',
         'total_pengajuan_dibatalkan' => '0',
-        'total_nominal' => '-'
+        'total_nominal' => '0'
         ]); 
 
         DB::table('report')->insert([
@@ -46,7 +46,7 @@ class ReportSeeder extends Seeder
         'total_pengajuan_diterima' => '0',
         'total_pengajuan_ditolak' => '0',
         'total_pengajuan_dibatalkan' => '0',
-        'total_nominal' => '-'
+        'total_nominal' => '0'
         ]); 
 
         DB::table('report')->insert([
