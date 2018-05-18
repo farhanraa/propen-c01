@@ -53,7 +53,7 @@
                         <form>
                             <div class='col-sm-2'>
                                 <div class="form-group">
-                                  <img src=  "/upload/{{$employee-> foto}}" style="width:150px;height:180px;padding-left: 10px; padding-right:10px; ">
+                                  <img src=  "public/upload/{{$employee-> foto}}" style="width:150px;height:180px;padding-left: 10px; padding-right:10px; ">
                                 </div>
                             </div>
                             <div class='col-sm-10'>
@@ -609,7 +609,7 @@
                                 <td>{{ $dokumen -> nama_dokumen}}</td>
                                 <td>{{ $dokumen -> keterangan}}</td>
                                 <td>
-                                  <a href="/upload/{{$dokumen -> nama_file}}">
+                                  <a href="public/upload/{{$dokumen -> nama_file}}">
                                     <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-download">
                                     Unduh</i>
                                     </button>
