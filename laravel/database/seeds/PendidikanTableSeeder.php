@@ -19,8 +19,8 @@ class PendidikanTableSeeder extends Seeder
 	    	'tahun_masuk' => '2012', 
 	    	'tahun_lulus' => '2015', 
 	    	'jurusan' => 'IPA', 
-	    	'ipk' => '-',
-	    	'catatan' => '-'
+	    	'ipk' => '1',
+	    	'catatan' => '1'
     	]); 
 
     	 DB::table('pendidikan')->insert([
@@ -30,8 +30,8 @@ class PendidikanTableSeeder extends Seeder
 	    	'tahun_masuk' => '2015', 
 	    	'tahun_lulus' => '-', 
 	    	'jurusan' => 'Sistem Informasi', 
-	    	'ipk' => '-',
-	    	'catatan' => '-'
+	    	'ipk' => '1',
+	    	'catatan' => '1'
     	]); 
     }
 }
