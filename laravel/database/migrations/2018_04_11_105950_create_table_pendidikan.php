@@ -20,7 +20,7 @@ class CreateTablePendidikan extends Migration
         $table->integer('id_employee')->unsigned();
         $table->string('tingkat_pendidikan');
         $table->string('jurusan')->nullable();
-        $table->string('ipk');
+        
         $table->longText('catatan')->nullable();
         $table->string('tahun_masuk');
         $table->string('tahun_lulus');

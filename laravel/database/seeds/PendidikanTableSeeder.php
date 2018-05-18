@@ -19,7 +19,7 @@ class PendidikanTableSeeder extends Seeder
 	    	'tahun_masuk' => '2012', 
 	    	'tahun_lulus' => '2015', 
 	    	'jurusan' => 'IPA', 
-	    	'ipk' => '1',
+	    
 	    	'catatan' => '1'
     	]); 
 
@@ -30,7 +30,7 @@ class PendidikanTableSeeder extends Seeder
 	    	'tahun_masuk' => '2015', 
 	    	'tahun_lulus' => '-', 
 	    	'jurusan' => 'Sistem Informasi', 
-	    	'ipk' => '1',
+	    	
 	    	'catatan' => '1'
     	]); 
     }
