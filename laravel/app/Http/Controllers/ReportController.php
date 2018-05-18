@@ -97,11 +97,13 @@ class ReportController extends Controller{
             $bulan = 'Desember';
          }
 
+         $year = (string)$year;
+
         $getDate = DB::table("report")
         ->join('cabang' ,'cabang.id' , '=' , 'report.id_cabang')
         ->select('report.*')
         ->where('report.bulan' , $bulan)
-        ->where('report.tahun' , ''+$year)
+        ->where('report.tahun' , $year)
         ->get();
 
 

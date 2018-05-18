@@ -82,17 +82,17 @@ class LeaveController extends Controller
         //ubah format tanggal
         $tanggal = $request->input('tanggalMulai');
         $split_tanggal = explode("/", $tanggal);
-        $tahun = $split_tanggal[2];
-        $bulan = $split_tanggal[1];
-        $hari = $split_tanggal[0];
+        $tahun = $split_tanggal[0];
+        $bulan = $split_tanggal[1]; 
+        $hari = $split_tanggal[2];
         $tanggalMulai = $tahun. '-' . $bulan .'-' . $hari;
 
         //ubah format tanggal
         $tanggal = $request->input('tanggalSelesai');
         $split_tanggal = explode("/", $tanggal);
-        $tahun = $split_tanggal[2];
-        $bulan = $split_tanggal[1];
-        $hari = $split_tanggal[0];
+        $tahun = $split_tanggal[0];
+        $bulan = $split_tanggal[1]; 
+        $hari = $split_tanggal[2];
         $tanggalSelesai = $tahun. '-' . $bulan .'-' . $hari;
 
 
