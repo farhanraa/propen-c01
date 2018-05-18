@@ -15,7 +15,7 @@
       <div class="login100-more" style="background-image: url('{{asset('img/bg-02.jpg')}}');"></div>
       <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
         <form class="login100-form validate-form" action="/login" method="post">
-          <img id="logo-mega" src="public{{ asset('img/megacapital.png') }}">
+          <img id="logo-mega" src="{{ asset('public/img/megacapital.png') }}">
           <span class="login100-form-title p-b-24">
             Masuk ke Harmonis
           </span>
