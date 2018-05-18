@@ -73,11 +73,11 @@ class LeaveController extends Controller
 
         $jenis = $request->input('jenisCuti');
         $jenis = DB::table('jenis_cuti')
-        ->select('id_jenis')
+        ->select('id')
         ->where('nama_jenis' , $jenis)
-        ->get();
+        ->first();
 
-        $jenis = substr($jenis, strpos($jenis, '":"') + 3, 1);
+        // $jenis = substr($jenis, strpos($jenis, '":"') + 3, 1);
 
         //ubah format tanggal
         $tanggal = $request->input('tanggalMulai');
@@ -85,7 +85,7 @@ class LeaveController extends Controller
         $tahun = $split_tanggal[2];
         $bulan = $split_tanggal[1];
         $hari = $split_tanggal[0];
-        $tanggalMulai = $tahun. '-' . $hari .'-' . $bulan;
+        $tanggalMulai = $tahun. '-' . $bulan .'-' . $hari;
 
         //ubah format tanggal
         $tanggal = $request->input('tanggalSelesai');
@@ -93,7 +93,8 @@ class LeaveController extends Controller
         $tahun = $split_tanggal[2];
         $bulan = $split_tanggal[1];
         $hari = $split_tanggal[0];
-        $tanggalSelesai = $tahun. '-' . $hari .'-' . $bulan;
+        $tanggalSelesai = $tahun. '-' . $bulan .'-' . $hari;
+
 
         $alasan = $request->input('alasan');
         $alamat = $request->input('alamat');
@@ -109,7 +110,7 @@ class LeaveController extends Controller
 
         $cuti = new Cuti;
         $cuti->id_employee = $id_employee;
-        $cuti->id_jenis = $jenis;
+        $cuti->id_jenis = $jenis->id;
         $cuti->tanggal_mulai = $tanggalMulai;
         $cuti->tanggal_selesai = $tanggalSelesai;
         $cuti->alasan = $alasan;
