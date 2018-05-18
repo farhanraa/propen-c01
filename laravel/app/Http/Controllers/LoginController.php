@@ -30,7 +30,7 @@ class LoginController extends Controller
 
     	else{
             
-            echo DB::table('users')->get();
+            //echo DB::table('users')->get();
     		echo "Email atau password salah";
     		return view('login');
     	}
