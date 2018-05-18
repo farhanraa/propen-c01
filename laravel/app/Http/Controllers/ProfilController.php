@@ -218,7 +218,7 @@ class ProfilController extends Controller
              $pd->jurusan = $request->jurusan;
              $pd->tahun_masuk = $request->tahun_masuk;
              $pd->tahun_lulus = $request->tahun_lulus;
-             $pd->ipk = $request->ipk;
+             // $pd->ipk = $request->ipk;
              $pd->catatan = $request->catatan;
   
 

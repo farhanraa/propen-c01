@@ -53,7 +53,7 @@
                         <form>
                             <div class='col-sm-2'>
                                 <div class="form-group">
-                                  <img src=  "public/upload/{{$employee-> foto}}" style="width:150px;height:180px;padding-left: 10px; padding-right:10px; ">
+                                  <img src=  "upload/{{$employee-> foto}}" style="width:150px;height:180px;padding-left: 10px; padding-right:10px; ">
                                 </div>
                             </div>
                             <div class='col-sm-10'>
@@ -201,7 +201,6 @@
                                 <th>Jurusan</th>
                                 <th>Tahun Masuk</th>
                                 <th>Tahun Lulus</th>
-                                <th>IPK/Nilai Akhir</th>
                                 <th>Catatan</th>
                               </tr>
                             </thead>
@@ -213,7 +212,6 @@
                                 <td>{{ $pendidikan -> jurusan}}</td>
                                 <td>{{ $pendidikan -> tahun_masuk}}</td>
                                 <td>{{ $pendidikan -> tahun_lulus}}</td>
-                                <td>{{ $pendidikan -> ipk}}</td>
                                 <td>{{ $pendidikan -> catatan}}</td>
                               </tr>
                               @endforeach
@@ -609,7 +607,7 @@
                                 <td>{{ $dokumen -> nama_dokumen}}</td>
                                 <td>{{ $dokumen -> keterangan}}</td>
                                 <td>
-                                  <a href="public/upload/{{$dokumen -> nama_file}}">
+                                  <a href="upload/{{$dokumen -> nama_file}}">
                                     <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-download">
                                     Unduh</i>
                                     </button>

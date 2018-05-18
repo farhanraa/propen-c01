@@ -5,28 +5,28 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>HARMONIS</title>
   </script><!-- import css -->
-  <script src="{{ asset('public/js/jquery-3.3.1.js') }}" type="text/javascript">
+  <script src="{{ asset('js/jquery-3.3.1.js') }}" type="text/javascript">
   </script>
-  <script src="{{ asset('public/js/jquery-3.3.1.min.js') }}" type="text/javascript">
+  <script src="{{ asset('js/jquery-3.3.1.min.js') }}" type="text/javascript">
   </script>
-  <link href="{{ asset('public/css/bootstrap.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/lineicons/style.css') }}" rel="stylesheet" type="text/css"><!-- Custom styles for this template -->
-  <link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/morris.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/style-responsive.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/bootstrap-timepicker.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/bootstrap-timepicker.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/bootstrap-datepicker.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/jquery.dataTables.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/dataTables.bootstrap.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/bootstrap-collapsible.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/css/toastr.css') }}" rel="stylesheet">
-  <script src="{{ asset('public/js/chart-master/Chart.js') }}">
+  <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+  <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+  <link href="{{ asset('lineicons/style.css') }}" rel="stylesheet" type="text/css"><!-- Custom styles for this template -->
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/morris.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/bootstrap-timepicker.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/bootstrap-datepicker.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/bootstrap-collapsible.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
+  <script src="{{ asset('js/chart-master/Chart.js') }}">
   </script>
-  <link href="{{ asset('public/img/megacapital.png') }}" rel="shortcut icon">
+  <link href="{{ asset('img/megacapital.png') }}" rel="shortcut icon">
 </head>
 <body>
   <section id="container">
@@ -35,7 +35,7 @@
     <div class="sidebar-toggle-box">
       <div class="fa fa-bars tooltips" data-original-title="Toggle Navigation" data-placement="right"></div>
     </div><!--logo start-->
-    <a class="logo" href="{{route('dashboard')}}"><img id="harmonis-logo" src="{{ asset('public/img/harmonis-logo2.png') }}"></a> <!--logo end-->
+    <a class="logo" href="{{route('dashboard')}}"><img id="harmonis-logo" src="{{ asset('img/harmonis-logo2.png') }}"></a> <!--logo end-->
     <div class="nav notify-row" id="top_menu">
       <!--  notification start -->
       <!--  notification end -->
@@ -238,39 +238,39 @@
   <a href="#" id="scroll-top" style="display: none;"><span></span></a>
   </section>
   </section><!--main content end-->
-  <script src="{{ asset('public/js/bootstrap.min.js') }}">
+  <script src="{{ asset('js/bootstrap.min.js') }}">
   </script>
-  <script class="include" src="{{ asset('public/js/jquery.dcjqaccordion.2.7.js') }}" type="text/javascript" >
+  <script class="include" src="{{ asset('js/jquery.dcjqaccordion.2.7.js') }}" type="text/javascript" >
   </script>
-  <script src="{{ asset('public/js/common-scripts.js') }}">
+  <script src="{{ asset('js/common-scripts.js') }}">
   </script>
-  <script src="{{ asset('public/js/dataTables.bootstrap4.min.js') }}" type="text/javascript">
+  <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}" type="text/javascript">
   </script>
-  <script src="{{ asset('public/js/jquery.dataTables.min.js') }}" type="text/javascript">
+  <script src="{{ asset('js/jquery.dataTables.min.js') }}" type="text/javascript">
   </script>
-  <script class="include" src="{{ asset('public/js/jquery.dcjqaccordion.2.7.js') }} " type="text/javascript">
+  <script class="include" src="{{ asset('js/jquery.dcjqaccordion.2.7.js') }} " type="text/javascript">
   </script>
-  <script src="{{ asset('public/js/jquery.scrollTo.min.js') }}">
+  <script src="{{ asset('js/jquery.scrollTo.min.js') }}">
   </script>
-  <script src= "{{ asset('public/js/jquery.nicescroll.js') }}" type="text/javascript">
+  <script src= "{{ asset('js/jquery.nicescroll.js') }}" type="text/javascript">
   </script>
-  <script src="{{ asset('public/js/jquery.sparkline.js') }}">
+  <script src="{{ asset('js/jquery.sparkline.js') }}">
   </script> 
-  <script src="{{ asset('public/js/jquery.number.js') }}">
+  <script src="{{ asset('js/jquery.number.js') }}">
   </script>
-  <script src="{{ asset('public/js/bootstrap-timepicker.js') }}" type="text/javascript">
+  <script src="{{ asset('js/bootstrap-timepicker.js') }}" type="text/javascript">
   </script>
-  <script src="{{ asset('public/js/bootstrap-timepicker.min.js') }}" type="text/javascript">
+  <script src="{{ asset('js/bootstrap-timepicker.min.js') }}" type="text/javascript">
   </script>
-  <script src="{{ asset('public/js/bootstrap-datepicker.js') }}" type="text/javascript">
+  <script src="{{ asset('js/bootstrap-datepicker.js') }}" type="text/javascript">
   </script>
-  <script src="{{ asset('public/js/bootstrap-datepicker.min.js') }}" type="text/javascript">
+  <script src="{{ asset('js/bootstrap-datepicker.min.js') }}" type="text/javascript">
   </script> 
-  <script src="{{ asset('public/js/raphael-min.js') }}">
+  <script src="{{ asset('js/raphael-min.js') }}">
   </script>  
-  <script src="{{ asset('public/js/morris.min.js') }}">
+  <script src="{{ asset('js/morris.min.js') }}">
   </script> 
-  <script src="{{ asset('public/js/charts.js') }}">
+  <script src="{{ asset('js/charts.js') }}">
   </script>
 </body>
 </html>

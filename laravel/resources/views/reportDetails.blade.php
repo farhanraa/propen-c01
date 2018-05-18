@@ -26,7 +26,7 @@
                     </div>
                     <h2 align="center"><strong >Laporan Bulan {{$report_data -> bulan}} {{$report_data -> tahun}} </strong></h2>
                     <h3 align="center"><strong >Cabang {{$report_data -> nama_cabang}}</strong></h3>
-                    <img src="{{ asset('public/img/megacapital.png') }}" style="max-width: 23%; max-height: 23%;padding-right: 3rem; margin-left: 3rem" align="right"><br>
+                    <img src="{{ asset('img/megacapital.png') }}" style="max-width: 23%; max-height: 23%;padding-right: 3rem; margin-left: 3rem" align="right"><br>
                     <div class="dashboard-menu" style="padding-left: 4rem; padding-right: 4rem; ">
                     <table>           
                         <tr>

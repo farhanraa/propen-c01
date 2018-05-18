@@ -189,8 +189,8 @@
                                 <th>Institusi Pendidikan</th>
                                 <th>Jurusan</th>
                                 <th>Tahun Masuk</th>
-                                <th>Tahun Lulus</th>
-                                <th>IPK/Nilai Akhir</th>
+                                <th>Tahun Lulus</th><!-- 
+                                <th>IPK/Nilai Akhir</t -->
                                 <th>Catatan</th>
                               </tr>
                             </thead>
@@ -202,7 +202,6 @@
                                 <td>{{ $pendidikan -> jurusan}}</td>
                                 <td>{{ $pendidikan -> tahun_masuk}}</td>
                                 <td>{{ $pendidikan -> tahun_lulus}}</td>
-                                <td>{{ $pendidikan -> ipk}}</td>
                                 <td>{{ $pendidikan -> catatan}}</td>
                               </tr>
                               @endforeach

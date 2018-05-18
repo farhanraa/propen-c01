@@ -165,7 +165,7 @@
                         <div class="stock card">
                           <a href="/profile/view">
                           <div class="stock-chart">
-                            <div id="chart"><img class="dashboard-icon" src="{{ asset('public/img/profile.png') }}"></div>
+                            <div id="chart"><img class="dashboard-icon" src="{{ asset('img/profile.png') }}"></div>
                           </div>
                           <div class="summary">
                             <strong>PROFIL</strong>
@@ -178,7 +178,7 @@
                         <div class="stock card">
                           <a href="/claim/form">
                           <div class="stock-chart">
-                            <div id="chart"><img class="dashboard-icon" src="{{ asset('public/img/claim.png') }}"></div>
+                            <div id="chart"><img class="dashboard-icon" src="{{ asset('img/claim.png') }}"></div>
                           </div>
                           <div class="summary">
                             <strong>KLAIM</strong>
@@ -191,7 +191,7 @@
                         <div class="stock card">
                           <a href="/leave/form">
                           <div class="stock-chart">
-                            <div id="chart"><img class="dashboard-icon" src="{{ asset('public/img/leave.png') }}"></div>
+                            <div id="chart"><img class="dashboard-icon" src="{{ asset('img/leave.png') }}"></div>
                           </div>
                           <div class="summary">
                             <strong a href="/leave/form">CUTI</strong>
@@ -207,7 +207,7 @@
                         <div class="stock card">
                           <a href="/overtime/form">
                           <div class="stock-chart">
-                            <div id="chart"><img class="dashboard-icon" src="{{ asset('public/img/overtime.png') }}"></div>
+                            <div id="chart"><img class="dashboard-icon" src="{{ asset('img/overtime.png') }}"></div>
                           </div>
                           <div class="summary">
                             <strong a href="/overtime/form">LEMBUR</strong>
@@ -220,7 +220,7 @@
                         <div class="stock card">
                           <a href="/permission/form">
                           <div class="stock-chart">
-                            <div id="chart"><img class="dashboard-icon" src="{{ asset('public/img/permission.png') }}"></div>
+                            <div id="chart"><img class="dashboard-icon" src="{{ asset('img/permission.png') }}"></div>
                           </div>
                           <div class="summary">
                             <strong>IZIN</strong>
