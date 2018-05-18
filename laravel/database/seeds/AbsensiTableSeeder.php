@@ -13,55 +13,55 @@ class AbsensiTableSeeder extends Seeder
 
     {
         DB::table('absensi')->insert([
-        'id_fingerprint'=> '1',
+        'id_employee'=> '1',
+        'nama_cabang'=> 'BANDUNG',
         'tanggal'=> '2002-03-18',
         'jam_datang'=>'07:58:59',
         'jam_pulang'=>'17:11:00',
-        'status'=>'Disetujui',
         'keterangan'=>NULL,
         'overtime'=> NULL,
-    	]);  
+        ]);  
 
 
-    	DB::table('absensi')->insert([
-        'id_fingerprint'=> '2',
+        DB::table('absensi')->insert([
+        'id_employee'=> '2',
+        'nama_cabang'=> 'BANDUNG',
         'tanggal'=> '2002-03-18',
-        'jam_datang'=>'08:13:07',
-        'jam_pulang'=>'17:23:00',
-        'status'=>'Disetujui',
+        'jam_datang'=>'07:58:59',
+        'jam_pulang'=>'17:11:00',
         'keterangan'=>NULL,
         'overtime'=> NULL,
-    	]);
+        ]);
 
-    	DB::table('absensi')->insert([
-        'id_fingerprint'=> '5',
+        DB::table('absensi')->insert([
+        'id_employee'=> '3',
+        'nama_cabang'=> 'BANDUNG',
         'tanggal'=> '2002-03-18',
-        'jam_datang'=>'09:12:07',
-        'jam_pulang'=>'19:22:00',
-        'status'=>'Disetujui',
+        'jam_datang'=>'07:58:59',
+        'jam_pulang'=>'17:11:00',
         'keterangan'=>NULL,
         'overtime'=> NULL,
-    	]);
+        ]);
 
-    	DB::table('absensi')->insert([
-        'id_fingerprint'=> '4',
+        DB::table('absensi')->insert([
+        'id_employee'=> '4',
+        'nama_cabang'=> 'BANDUNG',
         'tanggal'=> '2002-03-18',
-        'jam_datang'=>'07:53:07',
-        'jam_pulang'=>'17:23:00',
-        'status'=>'Disetujui',
+        'jam_datang'=>'07:58:59',
+        'jam_pulang'=>'17:11:00',
         'keterangan'=>NULL,
         'overtime'=> NULL,
-    	]);
+        ]);
 
-    	DB::table('absensi')->insert([
-        'id_fingerprint'=> '3',
+        DB::table('absensi')->insert([
+        'id_employee'=> '5',
+        'nama_cabang'=> 'BANDUNG',
         'tanggal'=> '2002-03-18',
-        'jam_datang'=>'08:15:07',
-        'jam_pulang'=>'17:25:00',
-        'status'=>'Disetujui',
+        'jam_datang'=>'07:58:59',
+        'jam_pulang'=>'17:11:00',
         'keterangan'=>NULL,
         'overtime'=> NULL,
-    	]);
+        ]);
 
     }
 }

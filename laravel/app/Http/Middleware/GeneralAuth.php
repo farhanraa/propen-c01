@@ -18,7 +18,7 @@ class GeneralAuth
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->role == 'employee' || $user->role == 'headOfDepartment' || $user->role == 'adminCab' || $user->role == 'hrManager'){
+            if($user->role == 'employee' || $user->role == 'headOfDepartment' || $user->role == 'adminCab' || $user->role == 'hrManager' || $user->role == 'finance'){
                 return $next($request);
             }
         }

@@ -186,5 +186,42 @@ class KaryawanTableSeeder extends Seeder
         'id_fingerprint'=>'11117458',
         ]);
 
+        DB::table('employee')->insert([
+        'nik_employee'=>'11000096',
+        'nama'=>'Finance',
+        'tanggal_lahir'=>'1997-08-11',
+        'tempat_lahir'=>'Jakarta',
+        'tinggi'=>'185',
+        'golongan_darah'=>'A',
+        'agama'=>'islam',
+        'berat_badan'=>'50',
+        'no_dplk'=>'1000000111111223765432341',
+        'no_bpjs'=>'3009283711173',
+        'no_npwp'=>'456999403911194',
+        'no_telepon'=>'02188211192',
+        'no_jamsostek'=>'181218114829',
+        'no_handphone'=>'07877118399',
+        'jalan_identitas'=>'Srengseng Sawah',
+        'kota_identitas'=>'Jakarta',
+        'provinsi_identitas'=>'Jakarta',
+        'kode_pos_identitas'=>'16434',
+        'alamat_tempat_tinggal'=>'Jalan Margonda Raya no. 345',
+        'foto'=>NULL,
+        'email_perusahaan'=>'finance@mega.com',
+        'email'=>'finance@gmail.com',
+        'status_perkawinan'=>'Belum Menikah',
+        'jenis_identitas'=>'KTP',
+        'no_identitas'=>'98711114321',
+        'status'=>'',
+        'tanggal_masuk'=>'2014-01-13',
+        'id_departemen'=>'2',
+        'id_cabang'=>'3',
+        'id_jabatan'=>'3',
+        'jenis_kelamin'=>'L',
+        'id_fingerprint'=>'11117458',
+        ]);
+
+
+
     }
 }

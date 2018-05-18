@@ -316,7 +316,7 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label for="upload"><strong>Bukti Pembayaran</strong></label>
-                                <input type="file" name="uploadBukti" enctype="multipart/form-data>
+                                <input type="file" name="uploadBukti" enctype="multipart/form-data">
                               </div>
                             </div>
                           </div>

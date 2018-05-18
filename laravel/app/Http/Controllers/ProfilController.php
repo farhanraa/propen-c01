@@ -22,6 +22,15 @@ use App\kedisiplinan;
 use App\pengalamanKerja;
 use App\keluarga;
 use App\keluargaOrangTua;
+use App\JatahCuti;
+use App\Attendance;
+use App\dataClaim;
+use App\claimOfEmployee;
+use App\Overtime;
+use App\absensi;
+use App\Cuti;
+use App\jabatan;
+
 
 use DB;
 use Auth;
@@ -31,30 +40,58 @@ class ProfilController extends Controller
     //
     public function lihatProfil(){
         //fungsi
-
-        $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
-        $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+        $employee = Employee::where('id', Auth::user()->id_employee)->first();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('lihatProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
     }
 
-    public function download($file_name) {
-    $file_path = public_path('download/'.$file_name);
-    return response()->download($file_path);
-  }
+
 
     public function formProfil(){
         //fungsi
-        $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
-        $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+        $employee = Employee::where('id', Auth::user()->id_employee)->first();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
+        $kontakD = kontakDarurat::where('id_employee', $employee->id)->first();
+        $bank = Bank::where('id_employee', $employee->id)->first();
+    
+           //copy attributes from original model
+            $new_user = $employee->replicate();
+    
+            $new_user->push();
+            
+            $new_kontakD = $kontakD->replicate();
+            $new_kontakD->id_employee = $new_user->id;
+            $new_kontakD->push();
+            
+            $new_Bank = $bank->replicate();
+            $new_Bank->id_employee = $new_user->id;
+            $new_Bank->push();
+            
+
+            //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
+            $employee->relations = [];
+            //load relations on EXISTING MODEL
+            $employee->load('pendidikan','hobiDanPrestasi','pengalamanBerorganisasi','kontrakPercobaan','sertifikasi','kemampuanBahasa','lisensi','pengalamanKerja','keluarga','keluargaOrangTua','dokumen','mutasi','surat','kedisiplinan');
+            //re-sync the child relationships
+            $relations = $employee->getRelations();
+            foreach ($relations as $relation) {
+                foreach ($relation as $relationRecord) {
+                $newRelationship = $relationRecord->replicate();
+                $newRelationship->id_employee = $new_user->id;
+                $newRelationship->push();
+        }
+    }
+
+
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
     }
 
     public function formProfilSubmit(Request $request){
-            $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+           $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
             if ($request->hasFile('uploadContainer')){
 
@@ -90,9 +127,9 @@ class ProfilController extends Controller
             $employee->no_jamsostek =  $request->no_jamsostek;
             $employee->save();
 
-        $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
 
             
@@ -108,7 +145,7 @@ class ProfilController extends Controller
 
             Input::file('uploadDok')->move($destinationPath, $filename);
 
-             $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
              $dokumen = new dokumen;
              $dokumen->id_employee = $employee->id;
@@ -120,15 +157,15 @@ class ProfilController extends Controller
 
             
 
-        $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
       public function tambahHDP(Request $request){
-             $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+             $employee = Employee::where('id', Auth::user()->id_employee)->first();
             
              $hdp = new hobiDanPrestasi;
              $hdp->id_employee = $employee->id;
@@ -139,16 +176,16 @@ class ProfilController extends Controller
 
            
 
-                     $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+                     $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
       public function tambahPB(Request $request){
 
-             $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+             $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
              $pb = new pengalamanBerorganisasi;
              $pb->id_employee = $employee->id;
@@ -161,16 +198,18 @@ class ProfilController extends Controller
 
            
 
-            $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-            $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-            $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+            $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+            $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+            $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
             return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
       public function tambahPD(Request $request){
 
-            $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+            
+
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
              $pd = new pendidikan;
              $pd->id_employee = $employee->id;
@@ -187,17 +226,16 @@ class ProfilController extends Controller
 
            
 
-            $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-            $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-            $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+            $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+            $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+            $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
             return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
       public function tambahSP(Request $request){
 
-             $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
-
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
             
              $sp = new sertifikat; 
              $sp->id_employee = $employee->id;
@@ -211,15 +249,15 @@ class ProfilController extends Controller
 
             
 
-            $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-            $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-            $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+            $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+            $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+            $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
             return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
       public function tambahBA(Request $request){
 
-             $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+             $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
 
              $ba = new kemampuanBahasa;
@@ -230,15 +268,15 @@ class ProfilController extends Controller
   
             $ba->save();
 
-            $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-            $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-            $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+            $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+            $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+            $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
             return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
       public function tambahIK(Request $request){
-            $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
              
              $ik = new kedisiplinan;
              $ik->id_employee = $employee->id;
@@ -250,9 +288,9 @@ class ProfilController extends Controller
   
             $ik->save();
 
-                     $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+                     $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
@@ -260,7 +298,7 @@ class ProfilController extends Controller
 
       public function tambahSU(Request $request){
             
-           $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+           $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
            $t =$request->input('tanggal');
             $split_tanggal = explode("/", $t);
@@ -278,15 +316,15 @@ class ProfilController extends Controller
              
             $su->save();
 
-                     $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+                     $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
       
       public function tambahLI(Request $request){
-            $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
             
             $t =$request->input('tanggal');
             $split_tanggal = explode("/", $t);
@@ -312,9 +350,9 @@ class ProfilController extends Controller
 
             $li->save();
 
-                     $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+                     $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }      
@@ -322,7 +360,7 @@ class ProfilController extends Controller
 
       public function tambahPK(Request $request){
 
-             $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+             $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
              $pk = new pengalamanKerja;
              $pk->id_employee = $employee->id;
@@ -336,15 +374,15 @@ class ProfilController extends Controller
   
             $pk->save();
 
-                     $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+                     $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
       public function tambahK1(Request $request){
-            $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
             $t =$request->input('tanggal_lahir');
             $split_tanggal = explode("/", $t);
@@ -366,15 +404,15 @@ class ProfilController extends Controller
   
             $k1->save();
 
-                     $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+                     $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
             public function tambahK2(Request $request){
-            $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
             $t =$request->input('tanggal_lahir');
             $split_tanggal = explode("/", $t);
@@ -397,15 +435,15 @@ class ProfilController extends Controller
             $k2->save();
 
 
-                     $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+                     $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
       public function ubahKD(Request $request){
-            $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
             
              $kontakDarurat = kontakDarurat::where('id_employee', $employee->id)->first();
              
@@ -421,16 +459,16 @@ class ProfilController extends Controller
             $kontakDarurat->save();
 
 
-        $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
 
       public function ubahBank(Request $request){
-             $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+             $employee = Employee::where('id', Auth::user()->id_employee)->first();
              
              $bank = bank::where('id_employee', $employee->id)->first();
              
@@ -442,16 +480,16 @@ class ProfilController extends Controller
 
             $bank->save();
 
-        $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
             public function tambahKP(Request $request){
 
-            $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
+            $employee = Employee::where('id', Auth::user()->id_employee)->first();
 
             $tw =$request->input('tanggal_awal');
             $split_tanggal = explode("/", $tw);
@@ -478,27 +516,186 @@ class ProfilController extends Controller
 
             $kp->save();
 
-            $employee = Employee::where('nik_employee', '11000094')->first();
-
-                     $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+                     $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('formProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
             //$email = $require->input('nik_employee');
       }
 
 
-
-
       public function formProfilSelesai(Request $request){
-        $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
-        $employee->status = "0";
+        $employee = Employee::where('id', Auth::user()->id_employee)->first();
+        $employee->status = "1";
         $employee->save();
 
-        $departemen = DB::table('departemen')->where('id_departemen', $employee->id_departemen)->get();
-        $cabang = DB::table('cabang')->where('id_cabang', $employee->id_cabang)->get();
-        $jabatan = DB::table('jabatan')->where('id_jabatan', $employee->id_jabatan)->get();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('lihatProfil', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
       }
 
+    public function approval(){;
+        $id_employee = Auth::user()->id_employee;
+        $employee = Employee::where('id', $id_employee)->first();
+        $status = "1";
+        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                            
+        return view('ApprovalDataEmployee' , ['employee' => $employee,'employees' => $employees]);
+    }
+
+        public function lihatProfilApproval(Request $request){
+        //fungsi
+
+        $id = $request->input('nik_employee');
+        $employee = Employee::where('nik_employee', $id)->first();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
+        return view('lihatProfilHr', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
+    }
+
+     public function approvalDiterima(Request $request){
+
+        $nik_employee = $request->nik_employee;
+        
+        $employeei = Employee::where('nik_employee', $nik_employee)->first();
+
+        
+        $id_employee2 = Auth::user()->id_employee;
+
+        $employee = Employee::where('id', $id_employee2)->first();
+
+        $employeeTemp = Employee::where('id','!=',$employeei->id)->where('nik_employee', $nik_employee)->first();
+
+
+        
+
+        DB::table('pendidikan')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('hobi_dan_prestasi')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('pengalaman_berorganisasi')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('kontrak_percobaan')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('sertifikat')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('kemampuan_bahasa')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('pengalaman_kerja')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('keluarga')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('keluarga_orang_tua')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('dokumen')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('mutasi')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('surat')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('kedisiplinan')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('kontak_darurat')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('bank')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('lisensi')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('employee')->where('id', $employeeTemp->id)->delete();
+
+        $employeei->status = 0;
+        $employeei->save();
+        
+        $status = "1";
+        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                            
+        return view('ApprovalDataEmployee' , ['employee' => $employee,'employees' => $employees]);
+
+    }
+
+      public function approvalDitolak(Request $request){
+
+        
+        //Ambil  asli
+        $nik_employee = $request->nik_employee;
+        
+        $employeei = Employee::where('nik_employee', $nik_employee)->first();
+
+        
+        $id_employee2 = Auth::user()->id_employee;
+
+        $employee = Employee::where('id', $id_employee2)->first();
+
+        $employeeTemp = Employee::where('id','!=',$employeei->id)->where('nik_employee', $nik_employee)->first();
+        
+            
+        $jatahCuti = JatahCuti::where('id_employee', $employeei->id)->first();
+
+            
+            $new_jatahCuti = $jatahCuti->replicate();
+            $new_jatahCuti->id_employee = $employeeTemp->id;
+            $new_jatahCuti->push();
+            
+             $jabatan = jabatan::where('id_employee', $employeei->id)->first();
+       
+            
+            $new_jabatan = $jabatan->replicate();
+            $new_jabatan->id_employee = $employeeTemp->id;
+            $new_jabatan->push();
+
+            //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
+            $employeei->relations = [];
+            //load relations on EXISTING MODEL
+            $employeei->load('attendance','cuti','dataClaim','claimOfEmployee','overtime','absensi');
+            //re-sync the child relationships
+            $relations = $employeei->getRelations();
+            foreach ($relations as $relation) {
+                foreach ($relation as $relationRecord) {
+                $newRelationship = $relationRecord->replicate();
+                $newRelationship->id_employee = $employeeTemp->id;
+                $newRelationship->push();
+                 }
+             }
+
+
+            DB::table('users')->where('id_employee', $employeei->id)->update(['id_employee' => $employeeTemp->id]);
+
+            DB::table('pendidikan')->where('id_employee', $employeei->id)->delete();
+            DB::table('hobi_dan_prestasi')->where('id_employee', $employeei->id)->delete();
+            DB::table('pengalaman_berorganisasi')->where('id_employee', $employeei->id)->delete();
+            DB::table('kontrak_percobaan')->where('id_employee', $employeei->id)->delete();
+            DB::table('sertifikat')->where('id_employee', $employeei->id)->delete();
+            DB::table('kemampuan_bahasa')->where('id_employee', $employeei->id)->delete();
+            DB::table('pengalaman_kerja')->where('id_employee', $employeei->id)->delete();
+            DB::table('keluarga')->where('id_employee', $employeei->id)->delete();
+            DB::table('keluarga_orang_tua')->where('id_employee', $employeei->id)->delete();
+            DB::table('dokumen')->where('id_employee', $employeei->id)->delete();
+            DB::table('mutasi')->where('id_employee', $employeei->id)->delete();
+            DB::table('surat')->where('id_employee', $employeei->id)->delete();
+            DB::table('kedisiplinan')->where('id_employee', $employeei->id)->delete();
+            DB::table('kontak_darurat')->where('id_employee', $employeei->id)->delete();
+            DB::table('bank')->where('id_employee', $employeei->id)->delete();
+            DB::table('lisensi')->where('id_employee', $employeei->id)->delete();
+            DB::table('jatah_cuti')->where('id_employee', $employeei->id)->delete();
+            DB::table('attendance')->where('id_employee', $employeei->id)->delete();
+            DB::table('cuti')->where('id_employee', $employeei->id)->delete();
+            DB::table('data_klaim')->where('id_employee', $employeei->id)->delete();
+            DB::table('klaim_karyawan')->where('id_employee', $employeei->id)->delete();
+            DB::table('overtime')->where('id_employee', $employeei->id)->delete();
+            DB::table('absensi')->where('id_employee', $employeei->id)->delete();
+            DB::table('jabatan_karyawan')->where('id_employee', $employeei->id)->delete();
+            DB::table('lisensi')->where('id_employee', $employeei->id)->delete();
+            DB::table('employee')->where('id', $employeei->id)->delete();
+
+
+        
+        $status = "1";
+        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                            
+        return view('ApprovalDataEmployee' , ['employee' => $employee,'employees' => $employees]);
+
+    }
+
+
+    public function lihatProfilSemua(){;
+        $id_employee = Auth::user()->id_employee;
+        $employee = Employee::where('id', $id_employee)->first();
+        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status', '!=', 1)->get();                            
+        return view('viewAllProfil' , ['employee' => $employee,'employees' => $employees]);
+    }
+
+    public function ProfilSemua(Request $request){
+        //fungsi
+
+        $nik_employee = $request->input('nik_employee');
+
+        $employee = Employee::where('nik_employee', $nik_employee)->first();
+        $departemen = DB::table('departemen')->where('id', $employee->id_departemen)->get();
+        $cabang = DB::table('cabang')->where('id', $employee->id_cabang)->get();
+        $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
+        return view('lihatProfilHrSemua', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
+    }
 }

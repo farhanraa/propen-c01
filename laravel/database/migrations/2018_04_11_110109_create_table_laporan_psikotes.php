@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateTableLaporanPsikotes extends Migration
 {
     /**
@@ -21,11 +23,13 @@ class CreateTableLaporanPsikotes extends Migration
         $table->longText('uraian')->nullable();
         $table->longText('saran')->nullable();
         
+
         $table->foreign('id_employee')
         ->references('id')
         ->on('employee');
         });
     }
+
     /**
      * Reverse the migrations.
      *

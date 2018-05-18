@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateTableHobiDanPrestasi extends Migration
 {
     /**
@@ -17,11 +19,13 @@ class CreateTableHobiDanPrestasi extends Migration
         $table->string('hobi');
         $table->integer('id_employee')->unsigned();
         $table->string('prestasi');
+
         $table->foreign('id_employee')
         ->references('id')
         ->on('employee');
         });
     }
+
     /**
      * Reverse the migrations.
      *

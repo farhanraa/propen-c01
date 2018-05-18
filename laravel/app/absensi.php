@@ -11,6 +11,6 @@ class absensi extends Model
     public $timestamps = false;
 
     public function employee(){
-    	return $this->belongsTo('App\Employee', 'nomor_fingerprint');
+    	return $this->belongsTo('App\Employee', 'id');
     }
-}	
+}

@@ -357,6 +357,7 @@ class ComposerStaticInitbb6fea7fb8c7d5dd68546644ca9ff0f0
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Report' => __DIR__ . '/../..' . '/app/Report.php',
         'App\\RulesClaim' => __DIR__ . '/../..' . '/app/RulesClaim.php',
         'App\\RulesOfCostClaim' => __DIR__ . '/../..' . '/app/RulesOfCostClaim.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',

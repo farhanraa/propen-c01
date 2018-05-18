@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateTableMutasi extends Migration
 {
     /**
@@ -12,6 +14,7 @@ class CreateTableMutasi extends Migration
     public function up()
     {
         Schema::create('mutasi', function (Blueprint $table) {
+
         $table->increments('id');
         $table->integer('id_employee')->unsigned();
         $table->string('jenis_mutasi');
@@ -35,8 +38,10 @@ class CreateTableMutasi extends Migration
         $table->foreign('id_departemen')
         ->references('id')
         ->on('departemen');
+
         });
     }
+
     /**
      * Reverse the migrations.
      *

@@ -50,8 +50,10 @@
                               <tr>
                                 @foreach($result as $lembur)
                                 <td>{{$lembur -> tanggal}}</td>
-                                <td>{{$lembur -> waktu_mulai}}</td>
-                                <td>{{$lembur -> waktu_selesai}}</td>
+
+                                <td>{{ \Carbon\Carbon::parse($lembur -> waktu_mulai)->format('H:i')}} </td>
+                                <td>{{ \Carbon\Carbon::parse($lembur -> waktu_selesai)->format('H:i')}}</td>
+
 
                                 <td>
                                 @if ($lembur -> status === 'Menunggu Persetujuan HRM')
@@ -59,7 +61,9 @@
                                 @elseif ($lembur -> status === 'Ditolak')
                                   <span class="label label-danger">{{ $lembur -> status}}</span>
                                 @elseif($lembur -> status === 'Dibatalkan')
-                                  <span class="label label-danger">{{ $lembur -> status}}</span>
+
+                                  <span class="label label-warning">{{ $lembur -> status}}</span>
+
                                 @elseif($lembur -> status === 'Menunggu Persetujuan HoD')
                                   <span class="label label-default">{{ $lembur -> status}}</span>
                                 @else
@@ -68,14 +72,29 @@
                                 </td>
                                 <td>
                                   <form action="/overtime/form/batal" method="post">
-                                    <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
-                                    <input name="target" value="{{ $lembur ->  id }}" hidden>
-                                    <button class="btn btn-danger btn-xs" type="Submit" @if($lembur->status === 'Ditolak') disabled
-                                    @elseif($lembur->status === 'Diterima') disabled
-                                    @elseif($lembur->status === 'Dibatalkan') disabled
-                                    @endif><i class="fa fa-times-circle"
-                                    ></i></button>
-                                  </form>
+
+                                   <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+                                   <input name="target" value="{{ $lembur ->  id }}" hidden></input>
+                                   <button type ="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal{{$loop -> index}}"
+                                   @if ($lembur -> status === 'Ditolak') disabled
+                                    @elseif($lembur -> status === 'Dibatalkan') disabled
+                                    @elseif($lembur -> status === 'Diterima') disabled
+                                    @endif><i class="fa fa-times-circle"></i></button>
+
+                                    <div class="modal fade" id="myModal{{ $loop -> index ++}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-body">
+                                              <h2><strong>Batalkan pengajuan?</strong></h2>
+                                              <button type="submit" class="btn btn-danger">YA</button>
+                                              <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                 </form>
+
                                 </td>
                               </tr>
                               @endforeach
@@ -94,6 +113,7 @@
                           <form method="post" action="/overtime/form/submit">
                             <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                             <!--form tanggal dan jam-->
+
                             <div class="row">
                               <div class='col-sm-6'>
                                 <div class="form-group">
@@ -102,15 +122,13 @@
                                     <div class="form-group">
 
 
-                                      <input class="form-control" id='datepicker2' name='tanggalLembur' type='text' required="true">
+
+                                      <input class="form-control" id='datepicker2' name='tanggalLembur' type='date' min="{{$today}}" required="true">
 
                                     </div>
                                   </div>
-                                  <script>
-                                      $(function () {
-                                          $('#datepicker2').datepicker();
-                                      });
-                                  </script>
+                                  
+
                                 </div>
 
                               </div>
@@ -124,6 +142,7 @@
 
                                   </div>
                                 </div>
+
                               </div>
                               <script type="text/javascript">
                                     $(function () {
@@ -143,7 +162,6 @@
                               </div>
                               <script type="text/javascript">
                                     $(function () {
-
                                         $('#timepicker2').timepicker();
 
                                     });
@@ -165,20 +183,27 @@
                             </div>
                             <div class="row">
                               <span class="col-lg-11"></span>
-                              <div class="btn-group">
 
+                                 <button type ="button" class="btn btn-primary" data-toggle="modal" data-target="#ajukan">AJUKAN</button>
 
-                                <button class="btn btn-primary" type="submit"> AJUKAN</button>
+                                    <div class="modal fade" id="ajukan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-body">
+                                              <h2><strong>Ajukan Lembur?</strong></h2>
+                                              <button type="submit" class="btn btn-danger">YA</button>
+                                              <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>      
                               </div>
-
-                              </div>
+                            </form>
                             </div>
 
-                          </form>
-                          <script>
+                          <!-- <script>
                               var coll = document.getElementsByClassName("collapsible");
                               var i;
-
                               for (i = 0; i < coll.length; i++) {
                                 coll[i].addEventListener("click", function() {
                                   this.classList.toggle("activee");
@@ -190,7 +215,9 @@
                                   }
                                 });
                               }
-                            </script>
+
+                            </script> -->
+
 
                         </div>
 
@@ -208,4 +235,3 @@
       </section>
 
     @endsection
-

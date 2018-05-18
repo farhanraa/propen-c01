@@ -49,6 +49,7 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\Report' => $baseDir . '/app/Report.php',
     'App\\RulesClaim' => $baseDir . '/app/RulesClaim.php',
     'App\\RulesOfCostClaim' => $baseDir . '/app/RulesOfCostClaim.php',
     'App\\User' => $baseDir . '/app/User.php',

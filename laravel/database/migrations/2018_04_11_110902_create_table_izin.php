@@ -14,6 +14,7 @@ class CreateTableIzin extends Migration
         Schema::create('attendance', function (Blueprint $table) {
         $table->increments('id');
         $table->integer('id_employee');
+        $table->string('kode_pengajuan');
         $table->string('jenis');
         $table->date('tanggal_permohonan');
         $table->time('waktu');

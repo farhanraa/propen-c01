@@ -13,6 +13,6 @@ class Attendance extends Model
     public function employee(){
 
     	//ngedifine hubungan antara izin sama employee
-    	return $this->belongsTo('App\Employee' ,'nik_employee');
+    	return $this->belongsTo('App\Employee' ,'id_employee');
     }
 }

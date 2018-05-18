@@ -102,11 +102,24 @@
                                 <form action="/leave/form/dibatalkan" method="post">
                                   <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                                   <input name="target" value="{{ $riwayat -> id }}" hidden></input>
-                                  <button class="btn btn-danger btn-xs" type="Submit"
+                                  <button type ="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal{{$loop -> index}}"
                                     @if ($riwayat -> status === 'Ditolak') disabled
                                     @elseif($riwayat -> status === 'Diterima') disabled
                                     @elseif($riwayat -> status === 'Dibatalkan') disabled
                                     @endif><i class="fa fa-times-circle"></i></button>
+
+                                    <div class="modal fade" id="myModal{{ $loop -> index ++}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-body">
+                                              <h2><strong>Batalkan pengajuan?</strong></h2>
+                                              <button type="submit" class="btn btn-danger">YA</button>
+                                              <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
                                 </form>
                               </td>
                             </tr>
@@ -135,14 +148,10 @@
                                 <div class="form-group">
                                   <label for="datepicker1" ><strong>Tanggal Awal Cuti</strong></label>
                                   <div class="form-group">
-                                    <input class="form-control" id='datepicker1' type='text' name="tanggalMulai" required="true">
-
+                                    <input class="form-control" id='datepicker1' type='date' name="tanggalMulai" min="{{$today}}" required="true">
                                   </div>
                                   <script>
 
-                                    $(function () {
-                                        $('#datepicker1').datepicker();
-                                    });
                                   </script>
                                 </div>
                               </div>
@@ -151,12 +160,10 @@
                                   <div class="form-group">
                                     <label for="datepicker2" ><strong>Tanggal Akhir Cuti</strong></label>
                                     <div class="form-group">
-                                      <input class="form-control" id='datepicker2' type='text' name="tanggalSelesai" required="true">
+                                      <input class="form-control" id='datepicker2' type='date' name="tanggalSelesai" min="{{$today}}" required="true">
                                     </div>
                                     <script>
-                                      $(function () {
-                                          $('#datepicker2').datepicker();
-                                      });
+
                                       </script>
 
                                   </div>
@@ -185,7 +192,7 @@
                               <div class="col-lg-12">
                                 <div class="form-group">
                                   <label for="telp"><strong>Telp/HP</strong></label>
-                                  <input class="form-control" id="telp" name="telp" required="true"></input>
+                                  <input class="form-control" id="telp" name="telp" required type="number"></input>
                                 </div>
                               </div>
                             </div>
@@ -200,7 +207,19 @@
                             <div class="row">
                               <span class="col-lg-11"></span>
                               <div class="btn-group">
-                                <button class="btn btn-primary" type="submit">AJUKAN</button>
+                                <button type ="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">AJUKAN</button>
+
+                                 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                     <div class="modal-dialog">
+                                       <div class="modal-content">
+                                         <div class="modal-body">
+                                           <h2><strong>Ajukan Cuti?</strong></h2>
+                                           <button type="submit" class="btn btn-danger">YA</button>
+                                           <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
+                                         </div>
+                                       </div>
+                                     </div>
+                                   </div>
                               </div>
                             </div>
                             <br><br>

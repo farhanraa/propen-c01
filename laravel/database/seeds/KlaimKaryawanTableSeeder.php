@@ -39,6 +39,7 @@ class KlaimKaryawanTableSeeder extends Seeder
         'id_klaim'=>'13',
         'id_employee'=>'3',
         'sisa_klaim'=>'2000000',
+
         ]);
     }
 }

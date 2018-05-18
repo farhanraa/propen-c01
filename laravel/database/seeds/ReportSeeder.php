@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Database\Seeder;
+
 class ReportSeeder extends Seeder
 {
     /**
@@ -34,6 +35,7 @@ class ReportSeeder extends Seeder
         'total_pengajuan_dibatalkan' => '0',
         'total_nominal' => '-'
         ]); 
+
         DB::table('report')->insert([
         'kode_report' => 'R3042018',
         'jenis_report' => 'Lembur', 
@@ -46,6 +48,7 @@ class ReportSeeder extends Seeder
         'total_pengajuan_dibatalkan' => '0',
         'total_nominal' => '-'
         ]); 
+
         DB::table('report')->insert([
         'kode_report' => 'R4042018',
         'jenis_report' => 'Claim', 
@@ -60,3 +63,4 @@ class ReportSeeder extends Seeder
         ]); 
     }
 }
+

@@ -18,7 +18,7 @@ class AdminAuth
     {
         if(Auth::check()){     
             $user = Auth::user();
-            if($user->role == 'headOfDepartment' || $user->role == 'hrManager'){
+            if($user->role == 'headOfDepartment' || $user->role == 'hrManager' || $user->role == 'finance'){
                 return $next($request);
             }
             else return redirect('dashboard'); 

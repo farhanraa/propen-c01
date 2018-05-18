@@ -62,6 +62,14 @@ class UserSeeder extends Seeder
         $employee2->role = 'employee';
         $employee2->save();
 
+        $employee3 = new User();
+        $employee3->username = 'finance';
+        $employee3->email = 'finance@gmail.com';
+        $employee3->id_employee = '6';
+        $employee3->password = bcrypt('finance');
+        $employee3->role = 'finance';
+        $employee3->save();
+
         // $employee = new User();
         // $employee->username = 'farhanraa';
         // $employee->email = 'farhanraa@gmail.com';

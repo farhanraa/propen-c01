@@ -10,6 +10,11 @@ class JatahCuti extends Model
   public $timestamps = false;
   public $primaryKey = 'id';
 
+
+  public function employee(){
+    	return $this->belongsTo('App\Employee', 'id_employee');
+    }
+
   public function jenisCuti(){
     return $this->belongsTo('App\JenisCuti' , 'id_jenis');
   }

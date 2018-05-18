@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class ClaimOfEmployee extends Model
 {
     //
+
     public $table = 'klaim_karyawan';
+
     public $timestamps = false;
 
     public function employee(){

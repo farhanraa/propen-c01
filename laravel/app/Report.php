@@ -9,6 +9,4 @@ class Report extends Model
     //
     public $table = 'report';
     public $timestamps = false;
-    public $primaryKey = 'id';
-
 }

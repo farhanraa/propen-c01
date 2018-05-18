@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateTableLisensi extends Migration
 {
     /**
@@ -15,7 +17,7 @@ class CreateTableLisensi extends Migration
         Schema::create('lisensi', function (Blueprint $table) {
         
         $table->increments('id');
-        $table->string('nomor')->unique();
+        $table->string('nomor');
         $table->integer('id_employee')->unsigned();
         $table->string('jenis_lisensi');
         $table->date('tanggal');
@@ -26,6 +28,7 @@ class CreateTableLisensi extends Migration
         ->on('employee');
         });
     }
+
     /**
      * Reverse the migrations.
      *

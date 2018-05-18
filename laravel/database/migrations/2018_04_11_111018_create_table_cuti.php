@@ -26,9 +26,11 @@ class CreateTableCuti extends Migration
         $table->foreign('id_employee')
         ->references('id')
         ->on('employee');
+
         $table->foreign('id_jenis')
         ->references('id')
         ->on('jenis_cuti');
+
         });
     }
     /**

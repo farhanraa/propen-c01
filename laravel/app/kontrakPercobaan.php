@@ -12,6 +12,6 @@ class kontrakPercobaan extends Model
     public $primaryKey = 'id';
 
     public function employee(){
-    	return $this->belongsTo('App\Employee', 'nik_employee');
+    	return $this->belongsTo('App\Employee', 'id_employee');
     }
 }

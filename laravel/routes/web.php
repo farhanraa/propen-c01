@@ -32,7 +32,7 @@ Route::post('/permission/form/dibatalkan', 'izinController@dibatalkan');
 
 Route::get('/permission/approval', [
 	'middleware' => 'adminAuth',
-	'uses' => 'izinController@approval' 
+	'uses' => 'izinController@approval'
 ]);
 
 Route::post('/permission/approval/diterima', 'izinController@approvalDiterima');
@@ -87,7 +87,7 @@ Route::post('/overtime/form/batal', 'overtimeController@batal');
 
 
 
-// 
+//
 Route::get('/claim', function(){
 	return redirect('/claim/form');
 });
@@ -156,6 +156,81 @@ Route::get('/sendmail', 'HomeController@sendEmail');
 
 //ROUTES UNTUK REPORT
 
-Route::get('report',array('as'=>'report','uses'=>'ReportController@report'));
-Route::get('report',array('as'=>'reportIzin','uses'=>'ReportController@report'));
+Route::get('/report', [
+	'middleware' => 'adminAuth',
+	'uses' => 'ReportController@report'
+])->name('report');
+
+Route::post('/report/download', [
+	'middleware' => 'adminAuth',
+	'uses' => 'ReportController@downloadPdf'
+])->name('reportPdf');
+
+// Route::post('/report/details', 'ReportController@detailReport')->name('detailReport');
+// Route::post('/report/details', 'ReportController@detailView');
+
+Route::post('/report/details', [
+	'middleware' => 'adminAuth',
+	'uses' => 'ReportController@detailView'
+])->name('detailReport');
+Route::get('/absen/upload', [
+	'middleware' => 'hrAuth',
+	'uses' => 'AbsenController@uploadAbsen'
+]);
+
+//Untuk absensi
+
+Route::post('/absen/upload/hapus', [
+	'middleware' => 'hrAuth',
+	'uses' => 'AbsenController@hapusAbsen'
+])->name('hapus_Absen');
+
+Route::post('/absen/upload/submitAbsen', 'AbsenController@tambahAbsen')->name('tambahAbsen');
+
+Route::get('/absen/view/all',  [
+	'middleware' => 'adminAuth',
+	'uses' => 'AbsenController@lihatAbsenSemua'
+])->name('absenSemua');
+
+Route::post('/absen/view/all/detail', [
+	'middleware' => 'adminAuth',
+	'uses' => 'AbsenController@AbsenSemua'
+])->name('viewAllAbsen');
+
+
+
+//untuk profile
+
+Route::get('/profile/approval', [
+	'middleware' => 'adminAuth',
+	'uses' => 'ProfilController@approval'
+]);
+
+Route::get('/profile/view/all', [
+	'middleware' => 'adminAuth',
+	'uses' => 'ProfilController@lihatProfilSemua'
+])->name('viewAll');
+
+
+Route::post('/profile/view/all/detail', [
+	'middleware' => 'adminAuth',
+	'uses' => 'ProfilController@ProfilSemua'
+])->name('viewAllDetail');
+
+
+Route::post('/profile/view/hr', [
+	'middleware' => 'adminAuth',
+	'uses' => 'ProfilController@lihatProfilApproval'
+])->name('viewHr');
+
+
+Route::post('/profile/approval/diterima',  [
+	'middleware' => 'adminAuth',
+	'uses' => 'ProfilController@approvalDiterima'
+])->name('profilDiterima');
+
+Route::post('/profile/approval/ditolak',  [
+	'middleware' => 'adminAuth',
+	'uses' => 'ProfilController@approvalDitolak'
+])->name('profilDitolak');
 

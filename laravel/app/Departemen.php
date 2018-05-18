@@ -11,6 +11,6 @@ class departemen extends Model
     public $timestamps = false;
 
     public function employee(){
-    	return $this->belongsTo('App\departemen', 'id_departemen');
+    	return $this->belongsTo('App\departemen', 'id');
     }
 }

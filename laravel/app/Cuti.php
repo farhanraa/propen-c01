@@ -13,7 +13,7 @@ class Cuti extends Model
 
 
   public function employee(){
-    return $this->belongsTo('App\Employee' , 'nik_employee');
+    return $this->belongsTo('App\Employee' , 'id_employee');
   }
 
   public function jenisCuti(){

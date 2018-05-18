@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'generalAuth' => \App\Http\Middleware\GeneralAuth::class,
         'adminAuth' => \App\Http\Middleware\AdminAuth::class,
         'employeeAuth' => \App\Http\Middleware\EmployeeAuth::class,
+        'hrAuth' => \App\Http\Middleware\hrAuth::class,
 
     ];
 }

@@ -5,7 +5,6 @@
           <div class="col-lg-12">
             <!-- Start ROW MT -->
             <div class="row mt">
-               <input id="masuk" value="{{ $employee }}" name="masuk" hidden>
               <!-- White panel Quick Access START -->
               <div class="col-md-12 col-sm-12 mb">
                     @if(Auth::user()->role === 'headOfDepartment')
@@ -169,7 +168,7 @@
                             <div id="chart"><img class="dashboard-icon" src="{{ asset('img/profile.png') }}"></div>
                           </div>
                           <div class="summary">
-                            <strong>PROFILE</strong>
+                            <strong>PROFIL</strong>
                           </div>
                         </a>
                         </div><!-- card end -->
@@ -182,7 +181,7 @@
                             <div id="chart"><img class="dashboard-icon" src="{{ asset('img/claim.png') }}"></div>
                           </div>
                           <div class="summary">
-                            <strong>CLAIM</strong>
+                            <strong>KLAIM</strong>
                           </div>
                         </a>
                         </div><!-- card end -->

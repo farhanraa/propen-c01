@@ -25,7 +25,8 @@
                     <h2 style="padding-left: 30px;">Daftar Pengajuan Izin</h2>
                   </div>
 
-                   <div class="dahboard-menu">
+                   <div class="dahboard-menu" style="margin:2.5%;">
+
                     <div class="form-field" style="padding-left:15px; padding-right:15px; padding-top:15px; padding-bottom:15px;">
                       <!-- TAB START -->
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -50,7 +51,9 @@
                                       <th>Tanggal Permohonan</th>
                                       <th>Jam</th>
                                       <th>Status</th>
-                                      <th>Detail</th>
+
+                                      <th style="width: 8rem">Detail</th>
+
                                   </tr>
                               </thead>
                               <tbody>
@@ -60,32 +63,60 @@
                                       <td>{{ $pengajuan -> jenis}} </td>
                                       <td style="width: 22rem">{{ $pengajuan -> alasan}} </td>
                                       <td>{{ $pengajuan -> tanggal_permohonan}}</td>
-                                      <td>{{ $pengajuan -> waktu}} </td>
+
+                                      <td>{{ \Carbon\Carbon::parse($pengajuan -> waktu)->format('H:i')}} </td>
+
                                       <td>
                                       <span class="label label-default">{{ $pengajuan -> status}}</span>                        
                                   </td>
 
 
                                       <td id="terima">
-                                        <form action="/permission/approval/diterima" method="post" >
+
+                                        <ul>
+                                        <li style="float: left"><form action="/permission/approval/diterima" method="post" >
                                           <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                                           <input name="target" value="{{ $pengajuan -> id }}" hidden></input>
                                           <!-- <input name="target" value="{{ $pengajuan -> status }}" id="terima" hidden></input> -->
-                                          <button class="btn btn-success btn-xs" type="Submit"><i class="fa fa-check" ></i></button>
-                                        </form>
-                                        <form action="/permission/approval/ditolak" method="post">
+                                          <button class="btn btn-success btn-xs" type ="button" data-toggle="modal" data-target="#terima{{$loop -> index}}"><i class="fa fa-check" ></i></button>
+
+                                          <div class="modal fade" id="terima{{ $loop -> index ++}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                <div class="modal-body">
+                                                  <h2><strong>Terima pengajuan?</strong></h2>
+                                                  <button type="submit" class="btn btn-danger">YA</button>
+                                                  <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                        </form></li>
+                                        <li style="float: left"><form action="/permission/approval/ditolak" method="post">
                                           <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
                                           <input name="target" value="{{ $pengajuan -> id }}" hidden></input>
 
-                                          <button class="btn btn-danger btn-xs" type="Submit"
-                                          @if($pengajuan->status == 'Ditolak') disabled
-                                          
-                                          
+                                          <button class="btn btn-danger btn-xs" type="button" data-toggle="modal" data-target="#tolak{{$loop -> index}}"
+                                          @if($pengajuan->status == 'Ditolak') disabled                                          
                                           @elseif($pengajuan->status == 'Diterima') disabled
                                           @endif><i class="fa fa-times-circle"></i></button>
-                                        </form>
-                                      </td>
-                                      </td>        
+
+                                          <div class="modal fade" id="tolak{{ $loop -> index ++}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-body">
+                                              <h2><strong>Tolak pengajuan?</strong></h2>
+                                              <button type="submit" class="btn btn-danger">YA</button>
+                                              <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                        </form></li>
+                                      </td></ul>    
+
                                   </tr>
 
                                 @endforeach
@@ -126,7 +157,7 @@
                               <td>{{ $pengajuan -> jenis}} </td>
                               <td style="width: 22rem">{{ $pengajuan -> alasan}} </td>
                               <td>{{ $pengajuan -> tanggal_permohonan}}</td>
-                              <td>{{ $pengajuan -> waktu}} </td>
+                              <td>{{ \Carbon\Carbon::parse($pengajuan -> waktu)->format('H:i')}} </td>
 
                               <td>
 

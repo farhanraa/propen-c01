@@ -12,13 +12,13 @@ class Employee extends Model
     public function attendance(){
 
     	//ngedifine hubungan antara izin sama employee
-    	return $this->hasMany('App\Attendance' , 'nik_employee');
+    	return $this->hasMany('App\Attendance' , 'id_employee');
     }
 
     public function cuti(){
 
     	//ngedifine hubungan antara cuti sama employee
-    	return $this->hasMany('App\Cuti' , 'nik_employee');
+    	return $this->hasMany('App\Cuti' , 'id');
     }
 
     public function dataClaim(){
@@ -27,7 +27,7 @@ class Employee extends Model
     	return $this->hasMany('App\DataClaim' , 'id');
     }
     public function claimOfEmployee(){
-      return $this->hasMany('App\ClaimOfEmployee', 'id');
+      return $this->hasMany('App\ClaimOfEmployee', 'id_employee');
     }
 
     public function kontakDarurat(){
@@ -50,30 +50,29 @@ class Employee extends Model
     	return $this->hasMany('App\kontrakPercobaan', 'id_employee');
     }
 
-   
     public function pendidikan(){
     	return $this->hasMany('App\pendidikan', 'id_employee');
-    } 
+    }
 
     public function sertifikasi(){
         return $this->hasMany('App\sertifikat', 'id_employee');
-    } 
+    }
 
     public function kemampuanBahasa(){
         return $this->hasMany('App\kemampuanBahasa', 'id_employee');
-    } 
+    }
 
     public function lisensi(){
         return $this->hasMany('App\lisensi', 'id_employee');
     }
     public function overtime(){
-    	return $this->hasMany('App\Overtime' , 'nik_employee');
+    	return $this->hasMany('App\Overtime' , 'id_employee');
     }
 
     public function pengalamanKerja(){
         return $this->hasMany('App\pengalamanKerja', 'id_employee');
     }
-    
+
     public function keluarga(){
         return $this->hasMany('App\keluarga', 'id_employee');
     }
@@ -99,19 +98,23 @@ class Employee extends Model
     }
 
     public function absensi(){
-        return $this->hasMany('App\absensi', 'nomor_fingerprint');
+        return $this->hasMany('App\absensi', 'id_employee');
     }
 
     public function cabang(){
-        return $this->hasOne('App\cabang', 'id_cabang');
+        return $this->hasOne('App\cabang', 'id');
     }
 
     public function departemen(){
-        return $this->hasOne('App\departemen', 'id_departemen');
+        return $this->hasOne('App\departemen', 'id');
     }
 
-    public function jabatan(){
-        return $this->hasOne('App\jabatan', 'id_jabatan');
+    public function jabatan_karyawan(){
+        return $this->hasOne('App\jabatan', 'id');
+    }
+
+    public function jatah_cuti(){
+        return $this->hasOne('App\JatahCuti', 'id_employee');
     }
 
 }

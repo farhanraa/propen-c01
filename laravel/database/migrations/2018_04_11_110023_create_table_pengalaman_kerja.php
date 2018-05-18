@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateTablePengalamanKerja extends Migration
 {
     /**
@@ -28,6 +30,7 @@ class CreateTablePengalamanKerja extends Migration
         ->on('employee');
         });
     }
+
     /**
      * Reverse the migrations.
      *

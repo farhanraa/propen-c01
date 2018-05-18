@@ -8,7 +8,7 @@
   <script src="{{ asset('js/jquery-3.3.1.js') }}" type="text/javascript">
   </script>
   <script src="{{ asset('js/jquery-3.3.1.min.js') }}" type="text/javascript">
-  </script> 
+  </script>
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
   <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
   <link href="{{ asset('lineicons/style.css') }}" rel="stylesheet" type="text/css"><!-- Custom styles for this template -->
@@ -56,30 +56,76 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
           <li class="menu" style="list-style: none; display: inline">
-
-            
+            <p class="centered"><a class="profile-pic" href="{{route('lihatProfil')}}" ></a></p>
             <h4 class="centered" style="font-weight: bold">{{ Auth::user()->username }}</h4>
             <h6 class="centered" style="font-weight: lighter; margin-top: -0.75rem;">{{ Auth::user()->username }}</h6>
 
           </li>
-          <li class="mt">
-            <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+          <li class="mt">   
+            <li class="sub-menu">
+              <a href="javascript:;"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+            <ul class="sub">
+               @if(Auth::user()->role === 'hrManager' || Auth::user()->role === 'headOfDepartment')
+              <li>
+                <a href="/dashboard">Tren</a>
+              </li>
+              <li>
+                <a href="/report">Report</a>
+              </li>
+               @endif
+           </ul>
+          </li>
           </li>
           <li class="sub-menu">
             <a href="javascript:;"><i class="fa fa-desktop"></i> <span>Profile</span></a>
             <ul class="sub">
+               @if(Auth::user()->role === 'hrManager')
               <li>
                 <a href="/profile/view">Lihat Profile</a>
               </li>
               <li>
+                <a href="/profile/view/all">Lihat Profile Pegawai</a>
+              </li>
+              <li>
+                <a href="/profile/approval">Persetujuan</a>
+              </li>
+              @else
+              <li>
+                <a href="/profile/view">Lihat Profile</a>
+              </li>
+               @endif
+           </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;"><i class="fa fa-cogs"></i> <span>Absen</span></a>
+            <ul class="sub">
+              @if(Auth::user()->role === 'adminCab')
+              <li>
+                <a href="/absen/upload">Upload Absen</a>
+              </li>
+              <li>
                 <a href="/absen/view">Lihat Absen</a>
               </li>
+              @elseif(Auth::user()->role === 'hrManager')
+              <li>
+                <a href="/absen/view">Lihat Absen</a>
+              </li>
+              <li>
+                <a href="/absen/view/all">Lihat Absen Pegawai</a>
+              </li>
+              @else
+              <li>
+                <a href="/absen/view">Lihat Absen</a>
+              </li>
+              @endif
             </ul>
           </li>
           <li class="sub-menu">
             <a href="javascript:;"><i class="fa fa-cogs"></i> <span>Cuti</span></a>
             <ul class="sub">
+
               @if(Auth::user()->role === 'headOfDepartment')
+
               <li>
                 <a href="/leave/form">Form Pengajuan</a>
               </li>
@@ -87,12 +133,14 @@
                 <a href="/leave/approval">Persetujuan</a>
               </li>
               @elseif(Auth::user()->role === 'hrManager')
+
               <li>
                 <a href="/leave/form">Form Pengajuan</a>
               </li>
               <li>
                 <a href="/leave/approval">Persetujuan</a>
               </li>
+
               @else
               <li>
                 <a href="/leave/form">Form Pengajuan</a>
@@ -102,17 +150,10 @@
             </ul>
           </li>
           <li class="sub-menu">
-            <a href="javascript:;"><i class="fa fa-book"></i> <span>Claim</span></a>
+            <a href="javascript:;"><i class="fa fa-book"></i> <span>Klaim</span></a>
             <ul class="sub">
 
-              @if(Auth::user()->role === 'headOfDepartment')
-              <li>
-                <a href="/claim/form">Form Pengajuan</a>
-              </li>
-              <li>
-                <a href="/claim/approval">Persetujuan</a>
-              </li>
-              @elseif(Auth::user()->role === 'hrManager')
+              @if(Auth::user()->role === 'hrManager' || Auth::user()->role === 'finance')
               <li>
                 <a href="/claim/form">Form Pengajuan</a>
               </li>
@@ -123,6 +164,7 @@
               <li>
                 <a href="/claim/form">Form Pengajuan</a>
               </li>
+
               @endif
             </ul>
           </li>
@@ -139,10 +181,12 @@
               @elseif(Auth::user()->role === 'hrManager')
                 <li >
                 <a href="/permission/form">Form Pengajuan</a>
+
               </li>
               <li >
                 <a href="/permission/approval">Persetujuan</a>
               </li>
+
               @else
               <li >
                 <a href="/permission/form">Form Pengajuan</a>
@@ -157,6 +201,7 @@
               @if(Auth::user()->role === 'headOfDepartment')
               <li>
                 <a href="/overtime/form">Form Pengajuan</a>
+
               </li>
               <li>
                 <a href="/overtime/approval">Persetujuan</a>
@@ -164,10 +209,12 @@
                @elseif(Auth::user()->role === 'hrManager')
                 <li>
                 <a href="/overtime/form">Form Pengajuan</a>
+
               </li>
               <li>
                 <a href="/overtime/approval">Persetujuan</a>
               </li>
+
               @else
               <li>
                 <a href="/overtime/form">Form Pengajuan</a>
@@ -194,9 +241,9 @@
   <script src="{{ asset('js/bootstrap.min.js') }}">
   </script>
   <script class="include" src="{{ asset('js/jquery.dcjqaccordion.2.7.js') }}" type="text/javascript" >
-  </script> 
+  </script>
   <script src="{{ asset('js/common-scripts.js') }}">
-  </script> 
+  </script>
   <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}" type="text/javascript">
   </script>
   <script src="{{ asset('js/jquery.dataTables.min.js') }}" type="text/javascript">

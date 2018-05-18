@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateTableKontrakPercobaan extends Migration
 {
     /**
@@ -21,11 +23,13 @@ class CreateTableKontrakPercobaan extends Migration
         $table->longText('keterangan');
         $table->date('tanggal_awal');
         $table->date('tanggal_akhir');
+
         $table->foreign('id_employee')
         ->references('id')
         ->on('employee');
         });
     }
+
     /**
      * Reverse the migrations.
      *

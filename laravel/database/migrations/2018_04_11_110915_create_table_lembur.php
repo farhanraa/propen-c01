@@ -14,11 +14,13 @@ class CreateTableLembur extends Migration
         Schema::create('overtime', function (Blueprint $table) {
         $table->increments('id');
         $table->integer('id_employee');
+        $table->string('kode_pengajuan');
         $table->date('tanggal');
         $table->time('waktu_mulai');
         $table->time('waktu_selesai');
         $table->longText('alasan');
         $table->string('status');
+        
         $table->foreign('id_employee')
         ->references('id')
         ->on('employee');

@@ -16,15 +16,15 @@ class CreateTableAbsensi extends Migration
         Schema::defaultStringLength(191);
         Schema::create('absensi', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_fingerprint')->unique();
+            $table->integer('id_employee');
+            $table->string('nama_cabang');
             $table->date('tanggal');
             $table->time('jam_datang');
             $table->time('jam_pulang');
-            $table->string('status')->default('Menunggu Persetujuan HR');
             $table->string('keterangan')->nullable();
             $table->integer('overtime')->nullable();
 
-            $table->foreign('id_fingerprint')
+            $table->foreign('id_employee')
             ->references('id')
             ->on('employee');
 

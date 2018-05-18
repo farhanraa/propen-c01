@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateTableKontakDarurat extends Migration
 {
     /**
@@ -14,11 +16,11 @@ class CreateTableKontakDarurat extends Migration
         Schema::defaultStringLength(191);
         Schema::create('kontak_darurat', function (Blueprint $table) {
         $table->increments('id');
-        $table->string('nama_kontak')->unique();
+        $table->string('nama_kontak');
         $table->string('hubungan_kontak');
         $table->integer('id_employee')->unsigned();
-        $table->integer('no_hp_kontak')->unique();
-        $table->integer('no_telepon_kontak')->unique()->nullable();
+        $table->integer('no_hp_kontak');
+        $table->integer('no_telepon_kontak')->nullable();
         $table->string('alamat_kontak');
         $table->string('kota_kontak');
         $table->string('provinsi_kontak');
@@ -29,6 +31,7 @@ class CreateTableKontakDarurat extends Migration
         ->on('employee');
         });
     }
+
     /**
      * Reverse the migrations.
      *

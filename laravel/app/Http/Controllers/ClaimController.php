@@ -27,7 +27,9 @@ class ClaimController extends Controller
 
         // mencari claim yang berlaku pada tahun tersebut kepada suatu employee
         // DAN mencari totalHakClaim yang didapat
-
+        ${'data'.$totalHakClaim} = 0 ;
+        // echo $data0;
+    
         for($i = 0; $i < $claimOfEmployee->count(); $i++){
             if($claimOfEmployee[$i]->rulesClaim->is_berlaku == 1){
                 $validClaim[$i] = $claimOfEmployee[$i];
@@ -72,6 +74,7 @@ class ClaimController extends Controller
         $hari = $split_tanggal[1];
         $bulan = $split_tanggal[0];
         $tanggal_transaksi = $tahun. '-' . $bulan .'-' . $hari;
+
         if ($request->hasFile('uploadBukti')){
             $file = Input::file('uploadBukti');
             $destinationPath = public_path(). '/upload/';
@@ -89,15 +92,12 @@ class ClaimController extends Controller
     }
     
     public function approvalClaim(){
-
         $employee = Employee::where('nik_employee', Auth::user()->nik_employee)->first();
-
         $approvalClaim = '';
 
         if(Auth::user()->role == 'hrManager'){
             $approvalClaim = DataClaim::with('employee', 'rulesClaim')->where('status', 'Menunggu Persetujuan HRM')->get();
         }
-
         elseif(Auth::user()->role == 'finance'){
         // jika dia finance
             $approvalClaim = DataClaim::with('employee', 'rulesClaim')->where('status', 'Menunggu Persetujuan Finance')->get();
@@ -109,14 +109,18 @@ class ClaimController extends Controller
     }
 
     public function diterima(Request $request){
-        $dataTarget = DataClaim::where('id', $request->input('idDataClaim'))->with('employee')->first();
+        $dataTarget = DataClaim::where('id', $request->input('idDataClaim'))->with('employee', 'rulesClaim')->first();
 
         if(Auth::user()->role == 'hrManager'){
             $dataTarget->status = 'Menunggu Persetujuan Finance';
         }
         elseif(Auth::user()->role == 'finance'){
+            $claimOfEmployee = ClaimOfEmployee::where('id_employee', $dataTarget->employee->id)->where('id_klaim',  $dataTarget->rulesClaim->id)->first();
+            // 
             $dataTarget->status = 'Diterima';
-            $dataTarget->sisa_klaim = $dataTarget->sisa_klaim - $request->input('nominalClaim');
+
+            $claimOfEmployee->sisa_klaim = $claimOfEmployee->sisa_klaim - $dataTarget->nominal_klaim;
+            $claimOfEmployee->save();            
         }
         $dataTarget->save();
 
@@ -150,9 +154,4 @@ class ClaimController extends Controller
         return redirect('claim/form')->with('alert','Pengajuan dengan ID ' . $dataTarget->id .' Berhasil Dibatalkan');
     }
 
-    public function sendEmail()
-    {
-
-        
-    }
 }

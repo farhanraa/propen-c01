@@ -27,15 +27,27 @@ class izinController extends Controller
 
         //ubah format tanggal
         $tanggal =$request->input('tanggal');
-        $split_tanggal = explode("/", $tanggal);
-        $tahun = $split_tanggal[2];
-        $bulan = $split_tanggal[1];
-        $hari = $split_tanggal[0];
-        $tanggal_permohonan = $tahun. '-' . $hari .'-' . $bulan;
+        $split_tanggal = explode("-", $tanggal);
+        // echo $tanggal;
+        $tahun = $split_tanggal[0];
+        $bulan = $split_tanggal[1]; 
+        $hari = $split_tanggal[2];
+        
+        $tanggal_permohonan = $tahun. '-' . $bulan .'-' . $hari;
         //ubah format waktu
         $waktu = $request->input('waktu');
         $split_waktu = explode(" ", $waktu);
-        $jam = $split_waktu[0] . ':' . '00';
+        $jam = $split_waktu[0];
+        //biar bisa formatnya 24 jam
+        if($split_waktu[1] === 'PM'){
+            $split_jam = explode(":", $jam);
+            $jam2 = (int)$split_jam[0] + 12;
+            if((int)$split_jam[0] === 12){
+                $jam2 = 12;
+            }
+            $jam = $jam2 . ":" . $split_jam[1];
+
+        }
 
         $alasan = $request->input('alasan');
         $status = 'Menunggu Persetujuan HoD';
@@ -48,6 +60,13 @@ class izinController extends Controller
         $attendance->id_employee = $id_employee;
         $attendance->jenis = $jenis;
         $attendance->tanggal_permohonan = $tanggal_permohonan;
+        $kodePengajuan = DB::table('attendance')->count() + 1;
+        if($kodePengajuan < 10){
+            $kodePengajuan = '00' . $kodePengajuan;
+        }else if($kodePengajuan < 100){
+            $kodePengajuan = '0' . $kodePengajuan;
+         }
+        $attendance->kode_pengajuan = 'KDI' . $kodePengajuan;
         $attendance->waktu = $jam;
         $attendance->alasan = $alasan;
         $attendance->status = $status;
@@ -69,14 +88,13 @@ class izinController extends Controller
 
         //$result = Attendance::all();
         //echo $result;
-
-        return view('formIzin' , ['result' => $result, 'employee' => $employee]);
+        $today = date("Y-m-d");
+        return view('formIzin' , ['result' => $result, 'employee' => $employee , 'today' => $today]);
 
     }
 
     public function approval(){
         $employee = Employee::where('id', Auth::user()->id_employee)->first();
-        
         $riwayatPengajuan = DB::table('attendance')
         ->join('employee' , 'attendance.id_employee' , '=' , 'employee.id')
         ->select('employee.nama' ,'attendance.alasan' , 'attendance.tanggal_permohonan' ,'attendance.jenis', 'attendance.alasan', 'attendance.waktu', 'attendance.status', 'attendance.id')
@@ -89,7 +107,8 @@ class izinController extends Controller
         if(Auth::user()->role === 'headOfDepartment'){
 
             $listPengajuan = DB::table('attendance')
-            ->join('employee' , 'attendance.id_employee' , '=' , 'employee.id_employee')
+            ->join('employee' , 'attendance.id_employee' , '=' , 'employee.id')
+
             ->select('employee.nama' ,'attendance.alasan' , 'attendance.tanggal_permohonan' ,'attendance.jenis', 'attendance.alasan', 'attendance.waktu', 'attendance.status', 'attendance.id')
             ->where('attendance.status' , 'Menunggu Persetujuan HoD')
             ->get();
@@ -103,8 +122,7 @@ class izinController extends Controller
             ->where('attendance.status' , 'Menunggu Persetujuan HRM')
             ->get();
         }
-        
-        
+
         return view('tableApprovalIzin' , ['listPengajuan' => $listPengajuan, 'employee' => $employee , 'riwayatPengajuan' => $riwayatPengajuan]);
     }
 
@@ -113,11 +131,12 @@ class izinController extends Controller
 
         $target = $request->input('target');
 
+
+
         $attendance = Attendance::where('id' , $target)->first();
 
         if(Auth::user()->role === 'headOfDepartment'){
             $attendance->status = 'Menunggu Persetujuan HRM';
-
             $attendance->save();
         }
         else if(Auth::user()->role === 'hrManager'){
@@ -126,7 +145,6 @@ class izinController extends Controller
             $attendance->save();
         }
 
-        
 
         // $email = $attendance -> employee -> email;
 
@@ -159,12 +177,11 @@ class izinController extends Controller
 
         return redirect('/permission/approval')->with('alert','Permintaan ' .$employee->nama . ' ' .'Ditolak');
 
-
     }
 
     public function dibatalkan(Request $request){
 
-
+       // echo "masuk";
         $target = $request->input('target');
 
         $result = Attendance::where('id', $target)->first();

@@ -11,6 +11,6 @@ class cabang extends Model
     public $timestamps = false;
 
     public function employee(){
-    	return $this->belongsTo('App\Employee', 'id_cabang');
+    	return $this->belongsTo('App\Employee', 'id');
     }
 }

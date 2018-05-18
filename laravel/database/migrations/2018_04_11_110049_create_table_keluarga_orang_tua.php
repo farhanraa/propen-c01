@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+
 class CreateTableKeluargaOrangTua extends Migration
 {
     /**
@@ -24,11 +26,13 @@ class CreateTableKeluargaOrangTua extends Migration
         $table->string('pekerjaan')->nullable();
         $table->integer('no_telepon');
         
+
         $table->foreign('id_employee')
         ->references('id')
         ->on('employee');
         });
     }
+
     /**
      * Reverse the migrations.
      *
