@@ -4,15 +4,15 @@
   <title>HARMONIS | Masuk </title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/login-util.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/login-main.css') }}">
+  <link href="{{ asset('public/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ asset('public/css/login-util.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('public/css/login-main.css') }}">
 
 </head>
 <body style="background-color: #999999;">
   <div class="limiter">
     <div class="container-login100">
-      <div class="login100-more" style="background-image: url('{{asset('img/bg-02.jpg')}}');"></div>
+      <div class="login100-more" style="background-image: url('{{asset('public/img/bg-02.jpg')}}');"></div>
       <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
         <form class="login100-form validate-form" action="/login" method="post">
           <img id="logo-mega" src="{{ asset('public/img/megacapital.png') }}">
@@ -48,10 +48,10 @@
     </div>
   </div>
 <!--===============================================================================================-->
-  <script src="{{ asset('vendor/jquery-3.2.1.min.js') }}"></script>
-  <script src="{{ asset('vendor/popper.js') }}"></script>
-  <script src="{{ asset('vendor/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('js/login-main.js') }}"></script>
+  <script src="{{ asset('public/vendor/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('public/vendor/popper.js') }}"></script>
+  <script src="{{ asset('public/vendor/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('public/js/login-main.js') }}"></script>
 
 </body>
 </html>
