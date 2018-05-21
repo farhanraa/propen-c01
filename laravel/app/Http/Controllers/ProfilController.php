@@ -566,10 +566,8 @@ class ProfilController extends Controller
          
         $employeei->status = 0;
         $employeei->save();
-                 
-        $status = "1";
-         
-        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                                                  
+                
+       
         return redirect('/profile/approval');
 
     }
@@ -635,12 +633,8 @@ class ProfilController extends Controller
             DB::table('jabatan_karyawan')->where('id_employee', $employeei->id)->delete();
             DB::table('lisensi')->where('id_employee', $employeei->id)->delete();
             DB::table('employee')->where('id', $employeei->id)->delete();
-
-
         
-        $status = "1";
-        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                            
-        return redirect('/profile/approval');
+               return redirect('/profile/approval');
 
     }
 
