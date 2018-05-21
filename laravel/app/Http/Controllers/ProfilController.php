@@ -661,7 +661,7 @@ class ProfilController extends Controller
     public function lihatProfilSemua(){;
         $id_employee = Auth::user()->id_employee;
         $employee = Employee::where('id', $id_employee)->first();
-        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status', "0")->get();                            
+        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->get();                            
         return view('viewAllProfil' , ['employee' => $employee,'employees' => $employees]);
     }
 
