@@ -586,6 +586,7 @@ class ProfilController extends Controller
         DB::table('kontak_darurat')->where('id_employee', $employeeTemp->id)->delete();
         DB::table('bank')->where('id_employee', $employeeTemp->id)->delete();
         DB::table('lisensi')->where('id_employee', $employeeTemp->id)->delete();
+        DB::table('absensi')->where('id_employee', $employeeTemp->id)->delete();
         DB::table('employee')->where('id', $employeeTemp->id)->delete();
 
         $employeei->status = 0;
