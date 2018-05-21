@@ -121,7 +121,7 @@
             </ul>
           </li>
           <li class="sub-menu">
-            <a href="javascript:;"><i class="fa fa-cogs"></i> <span>Cuti</span></a>
+            <a href="javascript:;"><i class="fa fa-calendar"></i> <span>Cuti</span></a>
             <ul class="sub">
 
               @if(Auth::user()->role === 'headOfDepartment')

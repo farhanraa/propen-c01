@@ -37,15 +37,16 @@ class ClaimController extends Controller
                 $totalSisaClaim += $claimOfEmployee[$i]->sisa_klaim;
             }
         }
+        // echo $validClaim[1]->id;
         // mencari data claim (seluruh claim yang diajukan)
-    	$dataClaim = DataClaim::where('id_employee', $employee->id)->get();
-    	for ($i = 0; $i < $dataClaim->count(); $i ++){
+        $dataClaim = DataClaim::where('id_employee', $employee->id)->get();
+        for ($i = 0; $i < $dataClaim->count(); $i ++){
             if($dataClaim[$i]->status === 'Diterima'){
                 $totalSeluruhClaim += $dataClaim->pluck('nominal_klaim')[$i];
             }
-    	}
+        }
 
-    	return view('claim', [
+        return view('claim', [
             'employee' => $employee,
             'claimOfEmployee'=>$claimOfEmployee, 
             'totalSisaClaim'=>$totalSisaClaim,
@@ -65,6 +66,7 @@ class ClaimController extends Controller
         }
         $dataClaim->kode_data_klaim = 'KDC' . $kodeDataClaim;
         $dataClaim->id_klaim = $request->input('kodeClaim');
+        // echo $dataClaim->id_klaim;
         $employee = Employee::where('id', $request->input('idEmployee'))->first();
         $dataClaim->id_employee = $employee->id;
 
@@ -116,11 +118,19 @@ class ClaimController extends Controller
         }
         elseif(Auth::user()->role == 'finance'){
             $claimOfEmployee = ClaimOfEmployee::where('id_employee', $dataTarget->employee->id)->where('id_klaim',  $dataTarget->rulesClaim->id)->first();
-            // 
             $dataTarget->status = 'Diterima';
-
             $claimOfEmployee->sisa_klaim = $claimOfEmployee->sisa_klaim - $dataTarget->nominal_klaim;
-            $claimOfEmployee->save();            
+            $claimOfEmployee->save();
+
+            $dataClaim = DataClaim::where('id_employee', $dataTarget->employee->id)->where('id_klaim', $dataTarget->id_klaim)->get();
+            foreach($dataClaim as $claim){
+                if($claim->status == "Menunggu Persetujuan HRM" || $claim->status == "Menunggu Persetujuan Finance"){
+                    if($claim->nominal_klaim > $claimOfEmployee->sisa_klaim){
+                        $claim->status = 'Ditolak';
+                        $claim->save();
+                    }
+                }
+            }          
         }
         $dataTarget->save();
 

@@ -243,12 +243,11 @@
                             <select class="form-control" id="sel1" name="kodeClaim" onblur="maxClaim()" requireds>
                               <option disabled selected value></option>
                               @foreach ($validClaim as $claim)
-                              <option value="{{ $claim->id }}" maxClaim="{{$claim->sisa_klaim}}">
+                              <option value="{{ $claim->rulesClaim->id}}" maxClaim="{{$claim->sisa_klaim}}">
                                   {{ $claim->rulesClaim->id_klaim }} - {{ $claim->rulesClaim->jenis }}
                               </option>
                               @endforeach
                             </select><br>
-                            </script>
                           </div>
                           <div class="row">
                             <div class='col-sm-12'>

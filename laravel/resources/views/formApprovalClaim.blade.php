@@ -46,7 +46,7 @@
                                   <td>{{$claim->employee->nama}}</td>
                                   <td>{{$claim->rulesClaim->jenis}}</td>
                                   <td>{{$claim->tanggal_transaksi}}</td>
-                                  <td>{{$claim->nominal_klaim}}</td>
+                                  <td>{{ number_format($claim->nominal_klaim, 0, '', '.') }}</td>
                                   
                                     @if($claim->status == 'Diterima')
                                     <td>
@@ -123,7 +123,7 @@
                                                   </tr>
                                                   <tr>
                                                     <th>Nominal Claim</th>
-                                                    <td>{{$claim->nominal_klaim}}</td>
+                                                    <td>{{ number_format($claim->nominal_klaim, 0, '', '.') }}</td>
                                                   </tr>
                                                   <tr>
                                                     <th>Keterangan</th>
@@ -211,7 +211,7 @@
                               <td>{{ $claim->id }}</td>
                               <td>{{ $claim->rulesClaim->jenis }}</td>
                               <td>{{ $claim->tanggal_transaksi }}</td>
-                              <td>{{ $claim->nominal_klaim }}</td>
+                              <td>{{ number_format($claim->nominal_klaim, 0, '', '.') }}</td>
                               @if($claim->status == 'Diterima')
                               <td>
                                 <span class="label label-success">Diterima</span>
