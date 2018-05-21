@@ -567,7 +567,7 @@ class ProfilController extends Controller
 
         $employeeTemp = Employee::where('id','!=',$employeei->id)->where('nik_employee', $nik_employee)->first();
 
-
+         echo $employeeTemp->id;
         
 
         DB::table('pendidikan')->where('id_employee', $employeeTemp->id)->delete();
