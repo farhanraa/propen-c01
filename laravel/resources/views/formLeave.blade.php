@@ -132,7 +132,7 @@
 
 
                         <div class="form-field tab-pane fade" id="ajukanCuti" role="tabpanel" aria-labelledby="ajukanCuti-tab" style="padding-left:35px; padding-right:35px; padding-top:25px; padding-bottom:35px;">
-                          <form method="post" action="/leave/form/submit">
+                          <form action="/leave/form/submit" method="post">
                             <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
 
                               <label for="sel1"><strong>Jenis Cuti</strong></label>
@@ -207,21 +207,22 @@
                             <div class="row">
                               <span class="col-lg-11"></span>
                               <div class="btn-group">
-                                <button type ="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">AJUKAN</button>
-
-                                 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                                     <div class="modal-dialog">
-                                       <div class="modal-content">
-                                         <div class="modal-body">
-                                           <h2><strong>Ajukan Cuti?</strong></h2>
-                                           <button type="submit" class="btn btn-danger">YA</button>
-                                           <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
-                                         </div>
-                                       </div>
-                                     </div>
-                                   </div>
+                                <button type ="button" class="btn btn-primary" data-toggle="modal" data-target="#myModaal">AJUKAN</button>
                               </div>
                             </div>
+
+                                <div class="modal fade" id="myModaal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-body">
+                                          <h2><strong>Ajukan Cuti?</strong></h2>
+                                          <button type="submit" class="btn btn-danger">YA</button>
+                                          <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
                             <br><br>
                             <div class="row">
                               <span class="col-lg-8"></span>
@@ -230,6 +231,7 @@
                               </div>
 
                             </div>
+
                           </form>
                         </div>
                       </div>
