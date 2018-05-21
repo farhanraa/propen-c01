@@ -55,5 +55,16 @@ class IzinTableSeeder extends Seeder
         'status'=>'Diterima',
 
         ]);  
+        
+         DB::table('attendance')->insert([
+        'id_employee'=> '4',
+        'kode_pengajuan'=>'KDI004',
+        'jenis'=>'izin datang terlambat',
+        'tanggal_permohonan'=> '2017-03-24',
+        'waktu'=>'09:00',
+        'alasan'=>'kerumah sakit',
+        'status'=>'Diterima',
+
+        ]);  
     }
 }
