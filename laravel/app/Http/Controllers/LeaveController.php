@@ -72,7 +72,7 @@ class LeaveController extends Controller
         $id_employee = Auth::user()->id_employee;
 
         $jenis = $request->input('jenisCuti');
-        $jenis = DB::table('jenis_cuti')
+        $jenis_cuti = DB::table('jenis_cuti')
         ->select('id')
         ->where('nama_jenis' , $jenis)
         ->first();
@@ -83,7 +83,7 @@ class LeaveController extends Controller
         $tanggal = $request->input('tanggalMulai');
         $split_tanggal = explode("-", $tanggal);
         $tahun = $split_tanggal[0];
-        $bulan = $split_tanggal[1]; 
+        $bulan = $split_tanggal[1];
         $hari = $split_tanggal[2];
         $tanggalMulai = $tahun. '-' . $bulan .'-' . $hari;
 
@@ -91,10 +91,9 @@ class LeaveController extends Controller
         $tanggal = $request->input('tanggalSelesai');
         $split_tanggal = explode("-", $tanggal);
         $tahun = $split_tanggal[0];
-        $bulan = $split_tanggal[1]; 
+        $bulan = $split_tanggal[1];
         $hari = $split_tanggal[2];
         $tanggalSelesai = $tahun. '-' . $bulan .'-' . $hari;
-
 
         $alasan = $request->input('alasan');
         $alamat = $request->input('alamat');
@@ -110,7 +109,7 @@ class LeaveController extends Controller
 
         $cuti = new Cuti;
         $cuti->id_employee = $id_employee;
-        $cuti->id_jenis = $jenis->id;
+        $cuti->id_jenis = $jenis_cuti->id;
         $cuti->tanggal_mulai = $tanggalMulai;
         $cuti->tanggal_selesai = $tanggalSelesai;
         $cuti->alasan = $alasan;
@@ -141,8 +140,10 @@ class LeaveController extends Controller
         ->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')
 
         ->join('jenis_cuti' , 'jenis_cuti.id' , '=' , 'cuti.id_jenis')
-        ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis')
+        ->join('jatah_cuti' , 'jatah_cuti.id_jenis' , '=' , 'jenis_cuti.id')
+        ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis', 'jatah_cuti.sisa_cuti')
         ->where('cuti.status' , 'Menunggu Persetujuan HoD')
+        ->where('jatah_cuti.id_employee' , $employee->id)
         ->get();
       }
       elseif ($role === 'hrManager') {
@@ -153,8 +154,10 @@ class LeaveController extends Controller
         ->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')
 
         ->join('jenis_cuti' , 'jenis_cuti.id' , '=' , 'cuti.id_jenis')
-        ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis')
+        ->join('jatah_cuti' , 'jatah_cuti.id_jenis' , '=' , 'jenis_cuti.id')
+        ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis', 'jatah_cuti.sisa_cuti')
         ->where('cuti.status' , 'Menunggu Persetujuan HRM')
+        ->where('jatah_cuti.id_employee' , $employee->id)
         ->get();
       }
 
@@ -174,34 +177,6 @@ class LeaveController extends Controller
 
  public function approvalDiterima(Request $request){
          $role = Auth:: user()->role;
-
-      $approvals = '';
-      if($role === 'headOfDepartment') {
-        $approvals = DB::table('cuti')
-        ->join('employee' , 'cuti.id_employee' , '=' , 'employee.nik_employee')
-
-        ->join('departemen' , 'departemen.id_departemen' , '=' , 'employee.id_departemen')
-        ->join('cabang' , 'cabang.id_cabang' , '=' , 'employee.id_cabang')
-
-        ->join('jenis_cuti' , 'jenis_cuti.id' , '=' , 'cuti.id_jenis')
-        ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis')
-        ->where('cuti.status' , 'Menunggu Persetujuan HoD')
-        ->get();
-      }
-      elseif ($role === 'hrManager') {
-        $approvals = DB::table('cuti')
-        ->join('employee' , 'cuti.id_employee' , '=' , 'employee.nik_employee')
-
-        ->join('departemen' , 'departemen.id_departemen' , '=' , 'employee.id_departemen')
-        ->join('cabang' , 'cabang.id_cabang' , '=' , 'employee.id_cabang')
-
-        ->join('jenis_cuti' , 'jenis_cuti.id' , '=' , 'cuti.id_jenis')
-        ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis')
-        ->where('cuti.status' , 'Menunggu Persetujuan HRM')
-        ->get();
-      }
-
-        $role = Auth:: user()->role;
 
         $target = $request -> input('target');
 
@@ -236,7 +211,7 @@ class LeaveController extends Controller
           $jatahCuti = JatahCuti::where('id_employee' , $cuti->id_employee)->where('id_jenis' , $cuti->id_jenis) -> first();
           $angka1 = $jatahCuti->sisa_cuti;
           $angka2 = $dif;
-          
+
           $jatahCuti->sisa_cuti = $angka1 - $angka2;
           $jatahCuti -> save();
         }
@@ -260,32 +235,6 @@ class LeaveController extends Controller
 
      public function approvalDitolak(Request $request){
          $role = Auth:: user()->role;
-
-      $approvals = '';
-      if($role === 'headOfDepartment') {
-        $approvals = DB::table('cuti')
-        ->join('employee' , 'cuti.id_employee' , '=' , 'employee.nik_employee')
-
-        ->join('departemen' , 'departemen.id_departemen' , '=' , 'employee.id_departemen')
-        ->join('cabang' , 'cabang.id_cabang' , '=' , 'employee.id_cabang')
-
-        ->join('jenis_cuti' , 'jenis_cuti.id' , '=' , 'cuti.id_jenis')
-        ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis')
-        ->where('cuti.status' , 'Menunggu Persetujuan HoD')
-        ->get();
-      }
-      elseif ($role === 'hrManager') {
-        $approvals = DB::table('cuti')
-        ->join('employee' , 'cuti.id_employee' , '=' , 'employee.nik_employee')
-
-        ->join('departemen' , 'departemen.id_departemen' , '=' , 'employee.id_departemen')
-        ->join('cabang' , 'cabang.id_cabang' , '=' , 'employee.id_cabang')
-
-        ->join('jenis_cuti' , 'jenis_cuti.id' , '=' , 'cuti.id_jenis')
-        ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis')
-        ->where('cuti.status' , 'Menunggu Persetujuan HRM')
-        ->get();
-      }
 
        $target = $request -> input('target');
 
