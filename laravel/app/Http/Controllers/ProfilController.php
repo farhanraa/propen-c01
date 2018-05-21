@@ -593,7 +593,8 @@ class ProfilController extends Controller
         
             
         $jatahCuti = JatahCuti::where('id_employee', $employeei->id)->first();
-
+        
+        echo $jatahcuti;  
             
             $new_jatahCuti = $jatahCuti->replicate();
             $new_jatahCuti->id_employee = $employeeTemp->id;
