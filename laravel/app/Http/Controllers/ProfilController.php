@@ -553,7 +553,6 @@ class ProfilController extends Controller
         $jabatan = DB::table('jabatan_karyawan')->where('id', $employee->id_jabatan)->get();
         return view('lihatProfilHr', ['employee' => $employee, 'departemen'=> $departemen, 'cabang' => $cabang, 'jabatan' => $jabatan]);
     }
-
      public function approvalDiterima(Request $request){
 
         $nik_employee = $request->nik_employee;
@@ -565,36 +564,15 @@ class ProfilController extends Controller
 
         $employee = Employee::where('id', $id_employee2)->first();
 
-        $employeeTemp = DB::table('employee')->where('id', '!=', $employee->id)->where('nik_employee', $nik_employee)->first();
-
-        echo $employeeTemp->id;
-
-        DB::table('pendidikan')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('hobi_dan_prestasi')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('pengalaman_berorganisasi')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('kontrak_percobaan')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('sertifikat')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('kemampuan_bahasa')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('pengalaman_kerja')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('keluarga')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('keluarga_orang_tua')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('dokumen')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('mutasi')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('surat')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('kedisiplinan')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('kontak_darurat')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('bank')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('lisensi')->where('id_employee', $employeeTemp->id)->delete();
-        DB::table('employee')->where('id', $employeeTemp->id)->delete();
-
         $employeei->status = 0;
         $employeei->save();
         
         $status = "1";
         $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                            
-        return view('ApprovalDataEmployee' , ['employee' => $employee,'employees' => $employees]);
+        return redirect('/profile/approval');
 
     }
+   
 
       public function approvalDitolak(Request $request){
 
