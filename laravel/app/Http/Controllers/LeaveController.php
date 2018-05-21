@@ -140,10 +140,9 @@ class LeaveController extends Controller
         ->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')
 
         ->join('jenis_cuti' , 'jenis_cuti.id' , '=' , 'cuti.id_jenis')
-        ->join('jatah_cuti' , 'jatah_cuti.id_jenis' , '=' , 'jenis_cuti.id')
+        ->join->on('jatah_cuti' , 'jatah_cuti.id_jenis' , '=' , 'jenis_cuti.id')->andOn(('jatah_cuti.id_employee' , '=', 'employee.id')
         ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis', 'jatah_cuti.sisa_cuti')
         ->where('cuti.status' , 'Menunggu Persetujuan HoD')
-        ->where('jatah_cuti.id_employee' , 'employee.id')
         ->get();
       }
       elseif ($role === 'hrManager') {
@@ -154,10 +153,9 @@ class LeaveController extends Controller
         ->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')
 
         ->join('jenis_cuti' , 'jenis_cuti.id' , '=' , 'cuti.id_jenis')
-        ->join('jatah_cuti' , 'jatah_cuti.id_jenis' , '=' , 'jenis_cuti.id')
+        ->join->on('jatah_cuti' , 'jatah_cuti.id_jenis' , '=' , 'jenis_cuti.id')->andOn(('jatah_cuti.id_employee' , '=', 'employee.id')
         ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis', 'jatah_cuti.sisa_cuti')
         ->where('cuti.status' , 'Menunggu Persetujuan HRM')
-        ->where('jatah_cuti.id_employee' , 'employee.id')
         ->get();
       }
 
