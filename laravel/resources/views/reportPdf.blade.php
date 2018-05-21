@@ -63,6 +63,19 @@
 					<td>{{$report_data -> bulan}} {{$report_data -> tahun}}</td>
 				</tr>
 			</tbody>
+		</table><br>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Tahun</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{$report_data -> tahun}}</td>
+				</tr>
+			</tbody>
 		</table><br>			
 
 

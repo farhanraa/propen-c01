@@ -38,6 +38,7 @@
                               
                                <th>Nomor Dokumen</th>
                                <th>Nama Dokumen</th>
+                               <th>Tahun</th>
                                <th>Cabang</th>
                                <th>Lihat Detail</th>
                                <th>Unduh</th>
@@ -48,6 +49,7 @@
                               <tr>
                                <td>{{$izin -> kode_report}}</td>
                                <td>Laporan Izin Bulan {{$izin -> bulan}}</td>
+                               <td>{{$izin->tahun}}</td>
                                <td>{{$izin -> nama_cabang}}</td>
                                <td>                              
                                 <form method ="post" action = "/report/details">
@@ -87,6 +89,7 @@
                              <thead>
                                <th>Nomor Dokumen</th>
                                <th>Nama Dokumen</th>
+                               <th>Tahun</th>
                                <th>Cabang</th>
                                <th>Lihat Detail</th>
                                <th>Unduh</th>
@@ -98,6 +101,7 @@
                               
                                <td>{{$reports -> kode_report}}</td>
                                <td>Laporan Cuti Bulan {{$reports -> bulan}}</td>
+                               <td>{{$reports->tahun}}</td>
                                <td>{{$reports -> nama_cabang}}</td>
                                <td>                              
                                 <form method ="post" action = "/report/details">
@@ -136,6 +140,7 @@
                              <thead>
                                <th>Nomor Dokumen</th>
                                <th>Nama Dokumen</th>
+                               <th>Tahun</th>
                                <th>Cabang</th>
                                <th>Lihat Detail</th>
                                <th>Unduh</th>
@@ -146,6 +151,7 @@
                                @if($reports -> jenis_report === 'Lembur')
                                <td>{{$reports -> kode_report}}</td>
                                <td>Laporan Lembur Bulan {{$reports -> bulan}}</td>
+                               <td>{{$reports->tahun}}</td>
                                <td>{{$reports -> nama_cabang}}</td>
                                <td>                              
                                 <form method ="post" action = "/report/details">
@@ -183,6 +189,7 @@
                              <thead>
                                <th>Nomor Dokumen</th>
                                <th>Nama Dokumen</th>
+                               <th>Tahun</th>
                                <th>Cabang</th>
                                <th>Lihat Detail</th>
                                <th>Unduh</th>
@@ -193,6 +200,7 @@
                                @if($reports -> jenis_report === 'Claim')
                                <td>{{$reports -> kode_report}}</td>
                                <td>Laporan Lembur Bulan {{$reports -> bulan}}</td>
+                               <td>{{$reports->tahun}}</td>
                                <td>{{$reports -> nama_cabang}}</td>
                                <td>                              
                                 <form method ="post" action = "/report/details">

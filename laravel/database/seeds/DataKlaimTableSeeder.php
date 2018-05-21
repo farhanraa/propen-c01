@@ -40,26 +40,59 @@ class DataKlaimTableSeeder extends Seeder
         'nominal_klaim'=>'150000',
         'status'=>'Menunggu Persetujuan HRM',
         'keterangan'=>'memperbaiki kacamata',
-        ]);    
-        
+        ]);  
+
         DB::table('data_klaim')->insert([
         'id_klaim'=> '3',
         'id_employee'=>'1',
         'kode_data_klaim'=>'KDC003',
         'tanggal_transaksi'=>'2017-03-12',
         'nominal_klaim'=>'150000',
-        'status'=>'Menunggu Persetujuan HRM',
+        'status'=>'Menunggu Persetujuan HoD',
         'keterangan'=>'memperbaiki kacamata',
-        ]);    
-        
-                DB::table('data_klaim')->insert([
+        ]);   
+
+
+        DB::table('data_klaim')->insert([
         'id_klaim'=> '3',
-        'id_employee'=>'4',
+        'id_employee'=>'5',
         'kode_data_klaim'=>'KDC003',
         'tanggal_transaksi'=>'2017-03-12',
         'nominal_klaim'=>'150000',
-        'status'=>'Menunggu Persetujuan HRM',
+        'status'=>'Menunggu Persetujuan HoD',
         'keterangan'=>'memperbaiki kacamata',
-        ]);    
+        ]);   
+
+
+        DB::table('data_klaim')->insert([
+        'id_klaim'=> '3',
+        'id_employee'=>'1',
+        'kode_data_klaim'=>'KDC003',
+        'tanggal_transaksi'=>'2016-03-12',
+        'nominal_klaim'=>'150000',
+        'status'=>'Menunggu Persetujuan HoD',
+        'keterangan'=>'memperbaiki kacamata',
+        ]);   
+
+        DB::table('data_klaim')->insert([
+        'id_klaim'=> '3',
+        'id_employee'=>'2',
+        'kode_data_klaim'=>'KDC003',
+        'tanggal_transaksi'=>'2015-04-11',
+        'nominal_klaim'=>'150000',
+        'status'=>'Menunggu Persetujuan HoD',
+        'keterangan'=>'memperbaiki kacamata',
+        ]);   
+
+
+        DB::table('data_klaim')->insert([
+        'id_klaim'=> '3',
+        'id_employee'=>'3',
+        'kode_data_klaim'=>'KDC003',
+        'tanggal_transaksi'=>'2017-03-11',
+        'nominal_klaim'=>'150000',
+        'status'=>'Menunggu Persetujuan HoD',
+        'keterangan'=>'memperbaiki kacamata',
+        ]);   
     }
 }

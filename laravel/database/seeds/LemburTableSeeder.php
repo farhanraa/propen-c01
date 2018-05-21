@@ -50,6 +50,46 @@ class LemburTableSeeder extends Seeder
         'status'=>'Menunggu Persetujuan HRM',
        ]);
 
+        DB::table('overtime')->insert([
+        'id_employee'=> '3',
+        'kode_pengajuan'=>'KDL003',
+        'tanggal'=> '2016-03-08',
+        'waktu_mulai'=>'08:59:45',
+        'waktu_selesai'=>'12:12:00',
+        'alasan'=>'Upload UHL pada sistem AHS',
+        'status'=>'Menunggu Persetujuan HRM',
+       ]);
+
+        DB::table('overtime')->insert([
+        'id_employee'=> '1',
+        'kode_pengajuan'=>'KDL004',
+        'tanggal'=> '2015-03-08',
+        'waktu_mulai'=>'07:59:45',
+        'waktu_selesai'=>'21:12:00',
+        'alasan'=>'Upload UHL pada sistem AHS',
+        'status'=>'Menunggu Persetujuan HRM',
+       ]);
+
+        DB::table('overtime')->insert([
+        'id_employee'=> '2',
+        'kode_pengajuan'=>'KDL003',
+        'tanggal'=> '2016-03-08',
+        'waktu_mulai'=>'18:59:45',
+        'waktu_selesai'=>'21:12:00',
+        'alasan'=>'Upload UHL pada sistem AHS',
+        'status'=>'Menunggu Persetujuan HRM',
+       ]);
+
+
+        DB::table('overtime')->insert([
+        'id_employee'=> '1',
+        'kode_pengajuan'=>'KDL004',
+        'tanggal'=> '2017-03-08',
+        'waktu_mulai'=>'18:59:45',
+        'waktu_selesai'=>'21:12:00',
+        'alasan'=>'Upload UHL pada sistem AHS',
+        'status'=>'Menunggu Persetujuan HRM',
+       ]);
 
     }
 }

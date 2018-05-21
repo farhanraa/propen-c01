@@ -54,10 +54,53 @@ class IzinTableSeeder extends Seeder
         'alasan'=>'kerumah sakit',
         'status'=>'Diterima',
 
+        ]); 
+
+        DB::table('attendance')->insert([
+        'id_employee'=> '1',
+        'kode_pengajuan'=>'KDI004',
+        'jenis'=>'izin datang terlambat',
+        'tanggal_permohonan'=> '2016-03-24',
+        'waktu'=>'08:00',
+        'alasan'=>'kerumah sakit',
+        'status'=>'Diterima',
         ]);  
-        
-         DB::table('attendance')->insert([
+
+        DB::table('attendance')->insert([
         'id_employee'=> '4',
+        'kode_pengajuan'=>'KDI004',
+        'jenis'=>'izin datang terlambat',
+        'tanggal_permohonan'=> '2015-03-24',
+        'waktu'=>'09:00',
+        'alasan'=>'kerumah sakit',
+        'status'=>'Diterima',
+
+        ]); 
+
+        DB::table('attendance')->insert([
+        'id_employee'=> '1',
+        'kode_pengajuan'=>'KDI004',
+        'jenis'=>'izin datang terlambat',
+        'tanggal_permohonan'=> '2017-04-24',
+        'waktu'=>'09:00',
+        'alasan'=>'kerumah sakit',
+        'status'=>'Diterima',
+
+        ]); 
+
+        DB::table('attendance')->insert([
+        'id_employee'=> '3',
+        'kode_pengajuan'=>'KDI004',
+        'jenis'=>'izin datang terlambat',
+        'tanggal_permohonan'=> '2016-03-22',
+        'waktu'=>'10:00',
+        'alasan'=>'kerumah sakit',
+        'status'=>'Diterima',
+
+        ]); 
+
+        DB::table('attendance')->insert([
+        'id_employee'=> '3',
         'kode_pengajuan'=>'KDI004',
         'jenis'=>'izin datang terlambat',
         'tanggal_permohonan'=> '2017-03-24',
@@ -65,6 +108,28 @@ class IzinTableSeeder extends Seeder
         'alasan'=>'kerumah sakit',
         'status'=>'Diterima',
 
-        ]);  
+        ]); 
+
+        DB::table('attendance')->insert([
+        'id_employee'=> '3',
+        'kode_pengajuan'=>'KDI004',
+        'jenis'=>'izin datang terlambat',
+        'tanggal_permohonan'=> '2016-08-24',
+        'waktu'=>'09:00',
+        'alasan'=>'Ajak nenek kerumah sakit',
+        'status'=>'Diterima',
+
+        ]); 
+
+         DB::table('attendance')->insert([
+        'id_employee'=> '1',
+        'kode_pengajuan'=>'KDI004',
+        'jenis'=>'izin datang terlambat',
+        'tanggal_permohonan'=> '2015-08-24',
+        'waktu'=>'09:00',
+        'alasan'=>'Ajak nenek kerumah sakit',
+        'status'=>'Diterima',
+
+        ]); 
     }
 }

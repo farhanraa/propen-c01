@@ -84,7 +84,8 @@
                                             <div class="modal-dialog">
                                               <div class="modal-content">
                                                 <div class="modal-body">
-                                                  <h2><strong>Terima pengajuan?</strong></h2>
+                                                  <h2><strong>Terima pengajuan {{$pengajuan->nama}}?</strong></h2><input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+                                                  <input name="target" value="{{ $pengajuan -> id }}" hidden></input>
                                                   <button type="submit" class="btn btn-danger">YA</button>
                                                   <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
                                                 </div>
@@ -106,7 +107,9 @@
                                         <div class="modal-dialog">
                                           <div class="modal-content">
                                             <div class="modal-body">
-                                              <h2><strong>Tolak pengajuan?</strong></h2>
+                                              <h2><strong>Tolak pengajuan {{$pengajuan->nama}}?</strong></h2>
+                                              <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
+                                              <input name="target" value="{{ $pengajuan -> id }}" hidden></input>
                                               <button type="submit" class="btn btn-danger">YA</button>
                                               <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
                                             </div>
