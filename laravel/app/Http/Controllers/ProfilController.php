@@ -591,15 +591,7 @@ class ProfilController extends Controller
 
         $employeeTemp = Employee::where('id','!=',$employeei->id)->where('nik_employee', $nik_employee)->first();
         
-            
-        $jatahCuti = JatahCuti::where('id_employee', $employeei->id)->first();
-                    
-             $jabatan = jabatan::where('id_employee', $employeei->id)->first();
-       
-            
-            $new_jabatan = $jabatan->replicate();
-            $new_jabatan->id_employee = $employeeTemp->id;
-            $new_jabatan->push();
+         
 
             //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
             $employeei->relations = [];
