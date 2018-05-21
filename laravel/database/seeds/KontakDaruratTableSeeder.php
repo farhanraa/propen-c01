@@ -24,5 +24,17 @@ class KontakDaruratTableSeeder extends Seeder
         'alamat_kontak' => 'Jl. Mangga',
         'kode_pos_kontak' => '15229',
         ]);
+        
+         DB::table('kontak_darurat')->insert([
+        'id_employee'=>'1',
+        'nama_kontak'=>'Suparlan',
+        'hubungan_kontak' => 'Abang',
+        'no_hp_kontak' => '08183131',
+        'no_telepon_kontak'=>'74521',
+        'kota_kontak'=>'Depok',
+        'provinsi_kontak' => 'Jawa Barat',
+        'alamat_kontak' => 'Jl. Mangga',
+        'kode_pos_kontak' => '15229',
+        ]);
     }
 }
