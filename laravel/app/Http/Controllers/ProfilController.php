@@ -569,8 +569,7 @@ class ProfilController extends Controller
                  
         $status = "1";
          
-        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                            
-        return view('ApprovalDataEmployee' , ['employee' => $employee,'employees' => $employees]);                            
+        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                                                  
         return redirect('/profile/approval');
 
     }
@@ -641,7 +640,7 @@ class ProfilController extends Controller
         
         $status = "1";
         $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                            
-        return view('ApprovalDataEmployee' , ['employee' => $employee,'employees' => $employees]);
+        return redirect('/profile/approval');
 
     }
 
