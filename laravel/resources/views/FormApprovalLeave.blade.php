@@ -223,8 +223,8 @@
                                 @endif
                               </td>
                               <td id="terima">
-                                <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal{{$cuti -> id}}"><i class="fa fa-question-circle"></i></button>
-                                <div class="modal fade" id="myModal{{$cuti -> id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModaal{{$cuti -> id}}"><i class="fa fa-question-circle"></i></button>
+                                <div class="modal fade" id="myModaal{{$cuti -> id}}" tabindex="-1" role="dialog" aria-labelledby="myModaalLabel" aria-hidden="true">
                     						  <div class="modal-dialog">
                     						    <div class="modal-content">
                     						      <div class="modal-header">
