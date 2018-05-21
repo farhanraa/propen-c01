@@ -559,12 +559,13 @@ class ProfilController extends Controller
         
         $employeei = Employee::where('nik_employee', $nik_employee)->first();
         
-        $employeeTemp = DB::table('employee')->where('id', '!=', $employee->id)->where($employee->nik, $nik_employee)->get();
         
         $id_employee2 = Auth::user()->id_employee;
 
         $employee = Employee::where('id', $id_employee2)->first();
 
+        $employeeTemp = DB::table('employee')->where('id', '!=', $employee->id)->where($employee->nik, $nik_employee)->get();
+         
         $employeei->status = 0;
         $employeei->save();
         
