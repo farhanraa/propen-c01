@@ -143,7 +143,7 @@ class LeaveController extends Controller
         ->join('jatah_cuti' , 'jatah_cuti.id_jenis' , '=' , 'jenis_cuti.id')
         ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis', 'jatah_cuti.sisa_cuti')
         ->where('cuti.status' , 'Menunggu Persetujuan HoD')
-        ->where('jatah_cuti.id_employee' , $employee->id)
+        ->where('jatah_cuti.id_employee' , 'employee.id')
         ->get();
       }
       elseif ($role === 'hrManager') {
@@ -157,7 +157,7 @@ class LeaveController extends Controller
         ->join('jatah_cuti' , 'jatah_cuti.id_jenis' , '=' , 'jenis_cuti.id')
         ->select('cuti.*' , 'employee.nama' , 'employee.nik_employee' , 'departemen.nama_departemen' , 'cabang.nama_cabang' , 'jenis_cuti.nama_jenis', 'jatah_cuti.sisa_cuti')
         ->where('cuti.status' , 'Menunggu Persetujuan HRM')
-        ->where('jatah_cuti.id_employee' , $employee->id)
+        ->where('jatah_cuti.id_employee' , 'employee.id')
         ->get();
       }
 
