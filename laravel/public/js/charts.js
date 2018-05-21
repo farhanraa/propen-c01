@@ -6,64 +6,32 @@ var dataTargetIzin = new Array();
 var dataTargetLembur = new Array();
 // fungsi untuk mengambil data report yang dibutuhkan
 $(document).ready(function(){
-    
+
 });
 
 function pilihCabang(){
   cabang = document.getElementById('namaCabang').value;
   // mengambil data dari view   
-    // var employee = JSON.parse(document.getElementById("masuk").value);
+    data = JSON.parse(document.getElementById("reports").value);
+    dataReportBulanLalu = JSON.parse(document.getElementById("reportBulanLalu").value);
 
+    //
+    for (var i = 0; i < dataReportBulanLalu.length; i++){
+      if(dataReportBulanLalu[i].id_cabang == cabang && dataReportBulanLalu[i].jenis_report == 'Cuti'){
+        document.getElementById('cutiKemarin').innerHTML = dataReportBulanLalu[i].total_pengajuan;
+      }
+      else if(dataReportBulanLalu[i].id_cabang == cabang && dataReportBulanLalu[i].jenis_report == 'Claim'){
+        document.getElementById('claimKemarin').innerHTML = dataReportBulanLalu[i].total_pengajuan;
+      }
+      else if(dataReportBulanLalu[i].id_cabang == cabang && dataReportBulanLalu[i].jenis_report == 'Lembur'){
 
-    var data = [{"nama_cabang":"BANDUNG","id":"3","kode_report":"R2042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"12","total_pengajuan_ditolak":"5","total_pengajuan_dibatalkan":"3","total_nominal":"0"},
-                {"nama_cabang":"BANDUNG","id":"4","kode_report":"R3042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"10","total_pengajuan_diterima":"8","total_pengajuan_ditolak":"2","total_pengajuan_dibatalkan":"0","total_nominal":"0"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"50","total_pengajuan_diterima":"23","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"7","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"30","total_pengajuan_diterima":"30","total_pengajuan_ditolak":"0","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"19","total_pengajuan_ditolak":"1","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"15","total_pengajuan_diterima":"10","total_pengajuan_ditolak":"2","total_pengajuan_dibatalkan":"3","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"3","kode_report":"R2042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"10","total_pengajuan_diterima":"5","total_pengajuan_ditolak":"5","total_pengajuan_dibatalkan":"3","total_nominal":"0"},
-                {"nama_cabang":"Jakarta 1","id":"4","kode_report":"R3042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"15","total_pengajuan_ditolak":"10","total_pengajuan_dibatalkan":"0","total_nominal":"0"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"30","total_pengajuan_diterima":"25","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"7","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"40","total_pengajuan_diterima":"35","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"50","total_pengajuan_diterima":"45","total_pengajuan_ditolak":"30","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Cuti","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"60","total_pengajuan_diterima":"55","total_pengajuan_ditolak":"35","total_pengajuan_dibatalkan":"3","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"3","kode_report":"R2042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"12","total_pengajuan_ditolak":"5","total_pengajuan_dibatalkan":"3","total_nominal":"0"},
-                {"nama_cabang":"BANDUNG","id":"4","kode_report":"R3042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"10","total_pengajuan_diterima":"8","total_pengajuan_ditolak":"2","total_pengajuan_dibatalkan":"0","total_nominal":"0"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"50","total_pengajuan_diterima":"23","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"7","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"30","total_pengajuan_diterima":"30","total_pengajuan_ditolak":"0","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"19","total_pengajuan_ditolak":"1","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"15","total_pengajuan_diterima":"10","total_pengajuan_ditolak":"2","total_pengajuan_dibatalkan":"3","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"3","kode_report":"R2042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"10","total_pengajuan_diterima":"5","total_pengajuan_ditolak":"5","total_pengajuan_dibatalkan":"3","total_nominal":"0"},
-                {"nama_cabang":"Jakarta 1","id":"4","kode_report":"R3042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"15","total_pengajuan_ditolak":"10","total_pengajuan_dibatalkan":"0","total_nominal":"0"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"30","total_pengajuan_diterima":"25","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"7","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"40","total_pengajuan_diterima":"35","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"50","total_pengajuan_diterima":"45","total_pengajuan_ditolak":"30","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Klaim","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"60","total_pengajuan_diterima":"55","total_pengajuan_ditolak":"35","total_pengajuan_dibatalkan":"3","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"3","kode_report":"R2042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"12","total_pengajuan_ditolak":"5","total_pengajuan_dibatalkan":"3","total_nominal":"0"},
-                {"nama_cabang":"BANDUNG","id":"4","kode_report":"R3042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"10","total_pengajuan_diterima":"8","total_pengajuan_ditolak":"2","total_pengajuan_dibatalkan":"0","total_nominal":"0"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"50","total_pengajuan_diterima":"23","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"7","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"30","total_pengajuan_diterima":"30","total_pengajuan_ditolak":"0","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"19","total_pengajuan_ditolak":"1","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"15","total_pengajuan_diterima":"10","total_pengajuan_ditolak":"2","total_pengajuan_dibatalkan":"3","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"3","kode_report":"R2042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"10","total_pengajuan_diterima":"5","total_pengajuan_ditolak":"5","total_pengajuan_dibatalkan":"3","total_nominal":"0"},
-                {"nama_cabang":"Jakarta 1","id":"4","kode_report":"R3042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"15","total_pengajuan_ditolak":"10","total_pengajuan_dibatalkan":"0","total_nominal":"0"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"30","total_pengajuan_diterima":"25","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"7","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"40","total_pengajuan_diterima":"35","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"50","total_pengajuan_diterima":"45","total_pengajuan_ditolak":"30","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Lembur","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"60","total_pengajuan_diterima":"55","total_pengajuan_ditolak":"35","total_pengajuan_dibatalkan":"3","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"3","kode_report":"R2042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"12","total_pengajuan_ditolak":"5","total_pengajuan_dibatalkan":"3","total_nominal":"0"},
-                {"nama_cabang":"BANDUNG","id":"4","kode_report":"R3042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"10","total_pengajuan_diterima":"8","total_pengajuan_ditolak":"2","total_pengajuan_dibatalkan":"0","total_nominal":"0"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"50","total_pengajuan_diterima":"23","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"7","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"30","total_pengajuan_diterima":"30","total_pengajuan_ditolak":"0","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"19","total_pengajuan_ditolak":"1","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"BANDUNG","id":"5","kode_report":"R4042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"15","total_pengajuan_diterima":"10","total_pengajuan_ditolak":"2","total_pengajuan_dibatalkan":"3","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"3","kode_report":"R2042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"10","total_pengajuan_diterima":"5","total_pengajuan_ditolak":"5","total_pengajuan_dibatalkan":"3","total_nominal":"0"},
-                {"nama_cabang":"Jakarta 1","id":"4","kode_report":"R3042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"20","total_pengajuan_diterima":"15","total_pengajuan_ditolak":"10","total_pengajuan_dibatalkan":"0","total_nominal":"0"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"30","total_pengajuan_diterima":"25","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"7","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"40","total_pengajuan_diterima":"35","total_pengajuan_ditolak":"20","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"50","total_pengajuan_diterima":"45","total_pengajuan_ditolak":"30","total_pengajuan_dibatalkan":"0","total_nominal":"1200000"},
-                {"nama_cabang":"Jakarta 1","id":"5","kode_report":"R4042018","jenis_report":"Izin","bulan":"April","tahun":"2018","id_cabang":"1","total_pengajuan":"60","total_pengajuan_diterima":"55","total_pengajuan_ditolak":"35","total_pengajuan_dibatalkan":"3","total_nominal":"1200000"}];
-    
+        document.getElementById('lemburKemarin').innerHTML = dataReportBulanLalu[i].total_pengajuan;
+      }
+      else if(dataReportBulanLalu[i].id_cabang == cabang && dataReportBulanLalu[i].jenis_report == 'Izin'){
+        document.getElementById('izinKemarin').innerHTML = dataReportBulanLalu[i].total_pengajuan;
+      }
+    }
+
     //Memasukkan data report sesuai dengan cabang yang dipilih
     var indexCuti = 0;
     var indexKlaim = 0;
@@ -71,19 +39,19 @@ function pilihCabang(){
     var indexLembur = 0;
 
     for (var i = 0; i < data.length; i++){
-      if(data[i].nama_cabang == cabang && data[i].jenis_report == 'Cuti'){
+      if(data[i].id_cabang == cabang && data[i].jenis_report == 'Cuti'){
         dataTargetCuti[indexCuti] = data[i];
         indexCuti++;
       }
-      else if(data[i].nama_cabang == cabang && data[i].jenis_report == 'Klaim'){
+      else if(data[i].id_cabang == cabang && data[i].jenis_report == 'Claim'){
         dataTargetKlaim[indexKlaim] = data[i];
         indexKlaim++;
       }
-      else if(data[i].nama_cabang == cabang && data[i].jenis_report == 'Lembur'){
+      else if(data[i].id_cabang == cabang && data[i].jenis_report == 'Lembur'){
         dataTargetLembur[indexLembur] = data[i];
         indexLembur++;
       }
-      else if(data[i].nama_cabang == cabang && data[i].jenis_report == 'Izin'){
+      else if(data[i].id_cabang == cabang && data[i].jenis_report == 'Izin'){
         dataTargetIzin[indexIzin] = data[i];
         indexIzin++;
       }

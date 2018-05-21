@@ -9,16 +9,18 @@
               <div class="col-md-12 col-sm-12 mb">
                     @if(Auth::user()->role === 'headOfDepartment')
                     <!-- Chart START -->
+                    <input id="reports" value="{{ $reports }}" hidden>
+                    <input id="reportBulanLalu" value="{{ $reportBulanLalu }}" hidden>
 
                     <ul>
                       <li style="float: left">
-                        <h4 style="font-weight: 700; margin-left: -3rem">Dashboard</h4>
+                        <h4 style="font-weight: 700; margin-left: -3rem">Dashboard | {{ $todayMonth }}-{{ $todayYear }} </h4>
                       </li>
                       <li style="float: right">
                         <select class="form-control" id="namaCabang" name="namaCabang" onchange="pilihCabang()" style="border-radius: 5pt; box-shadow: 0px 0px 10px -2px #aab2bd; width: 20rem">
                           <option disabled selected value>Pilih Cabang</option>
                           @foreach ($listOfCabang as $cabang)
-                          <option value="{{ $cabang->nama_cabang }}">
+                          <option value="{{ $cabang->id }}">
                             {{ $cabang->nama_cabang }}
                           </option>
                           @endforeach
@@ -35,11 +37,10 @@
                                 <abbr>Cuti</abbr> <time>Pengajuan Bulan lalu</time>
                               </div>
                               <div class="changes col-sm-6 col-xs-6">
-                                <div class="value up" style="color: #ce5a57">
-                                 694.00
+                                <div class="value up" id="cutiKemarin" style="color: #ce5a57">
                                 </div>
                                 <div class="change hidden-sm hidden-xs">
-                                  +4.95 (3.49%)
+                                  pengajuan
                                 </div>
                               </div>
                             </div>
@@ -54,11 +55,11 @@
                                 <abbr>Klaim</abbr> <time>Total klaim bulan lalu</time>
                               </div>
                               <div class="changes col-sm-6 col-xs-6">
-                                <div class="value up" style="color: #4fd98b;; font-size: 2rem">
-                                  16.500.200
+                                <div class="value up" id="claimKemarin" style="color: #4fd98b;; font-size: 2rem">
+
                                 </div>
                                 <div class="change hidden-sm hidden-xs">
-                                  Rupiah<p> (+20%)</p>
+                                  pengajuan
                                 </div>
                               </div>
                             </div>
@@ -73,11 +74,11 @@
                                 <abbr>Izin</abbr> <time>Pengajuan Bulan lalu</time>
                               </div>
                               <div class="changes col-sm-6 col-xs-6">
-                                <div class="value up" style="color: lightblue">
-                                  694.00
+                                <div class="value up" id="izinKemarin" style="color: lightblue">
+
                                 </div>
                                 <div class="change hidden-sm hidden-xs">
-                                  +4.95 (3.49%)
+                                 pengajuan
                                 </div>
                               </div>
                             </div>
@@ -92,20 +93,18 @@
                                 <abbr>Lembur</abbr> <time>Pengajuan Bulan lalu</time>
                               </div>
                               <div class="changes col-sm-6 col-xs-6">
-                                <div class="value up" style="color: yellow;">
-                                  694.00
+                                <div class="value up" id="lemburKemarin" style="color: yellow;">
+
                                 </div>
                                 <div class="change hidden-sm hidden-xs">
-                                  +4.95 (3.49%)
+                                  pengajuan
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                      
-                                        
+                    </div>      
                     <div class="row mt mmb">
                       <div class="col-lg-6 col-md-6">
                         <div class="content-panel">
