@@ -556,18 +556,12 @@ class ProfilController extends Controller
      public function approvalDiterima(Request $request){
 
         $nik_employee = $request->nik_employee;
-        
-        $employeei = Employee::where('nik_employee', $nik_employee)->first();
-        
-        
-        $id_employee2 = Auth::user()->id_employee;
 
-        $employee = Employee::where('id', $id_employee2)->first();
-         
+            
+        $employeei = Employee::where('nik_employee', $nik_employee)->first();
         $employeei->status = 0;
         $employeei->save();
                 
-       
         return redirect('/profile/approval');
 
     }
@@ -581,13 +575,7 @@ class ProfilController extends Controller
         
         $employeei = Employee::where('nik_employee', $nik_employee)->first();
 
-        
-        $id_employee2 = Auth::user()->id_employee;
-
-        $employee = Employee::where('id', $id_employee2)->first();
-
         $employeeTemp = Employee::where('id','!=',$employeei->id)->where('nik_employee', $nik_employee)->first();
-        
          
 
             //reset relations on EXISTING MODEL (this way you can control which ones will be loaded
