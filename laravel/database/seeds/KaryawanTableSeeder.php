@@ -44,7 +44,6 @@ class KaryawanTableSeeder extends Seeder
         'id_jabatan'=>'3',
         'jenis_kelamin'=>'P',
         'id_fingerprint'=>'11114755',
-        'status'=>'0',
         ]); 
 
         DB::table('employee')->insert([
@@ -80,7 +79,6 @@ class KaryawanTableSeeder extends Seeder
         'id_jabatan'=>'5',
         'jenis_kelamin'=>'P',
         'id_fingerprint'=>'11116454',
-        'status'=>'0',
         ]);
 
         DB::table('employee')->insert([
@@ -116,7 +114,6 @@ class KaryawanTableSeeder extends Seeder
         'id_jabatan'=>'1',
         'jenis_kelamin'=>'L',
         'id_fingerprint'=>'11119237',
-        'status'=>'0',
         ]);    
 
         DB::table('employee')->insert([
@@ -152,7 +149,6 @@ class KaryawanTableSeeder extends Seeder
         'id_jabatan'=>'2',
         'jenis_kelamin'=>'L',
         'id_fingerprint'=>'11118923',
-        'status'=>'0',
         ]);
 
         DB::table('employee')->insert([
@@ -188,12 +184,11 @@ class KaryawanTableSeeder extends Seeder
         'id_jabatan'=>'3',
         'jenis_kelamin'=>'L',
         'id_fingerprint'=>'11117458',
-        'status'=>'0',
         ]);
-        
+
         DB::table('employee')->insert([
         'nik_employee'=>'11000096',
-        'nama'=>'Staf finance',
+        'nama'=>'Finance',
         'tanggal_lahir'=>'1997-08-11',
         'tempat_lahir'=>'Jakarta',
         'tinggi'=>'185',
@@ -212,8 +207,8 @@ class KaryawanTableSeeder extends Seeder
         'kode_pos_identitas'=>'16434',
         'alamat_tempat_tinggal'=>'Jalan Margonda Raya no. 345',
         'foto'=>NULL,
-        'email_perusahaan'=>'faisalsatrio@mega.com',
-        'email'=>'faisalsatrio@gmail.com',
+        'email_perusahaan'=>'finance@mega.com',
+        'email'=>'finance@gmail.com',
         'status_perkawinan'=>'Belum Menikah',
         'jenis_identitas'=>'KTP',
         'no_identitas'=>'98711114321',
@@ -224,8 +219,9 @@ class KaryawanTableSeeder extends Seeder
         'id_jabatan'=>'3',
         'jenis_kelamin'=>'L',
         'id_fingerprint'=>'11117458',
-        'status'=>'0',
         ]);
+
+
 
     }
 }
