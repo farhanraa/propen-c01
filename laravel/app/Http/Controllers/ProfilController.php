@@ -558,7 +558,8 @@ class ProfilController extends Controller
         $nik_employee = $request->nik_employee;
         
         $employeei = Employee::where('nik_employee', $nik_employee)->first();
-
+        
+        $employeeTemp = DB::table('employee')->where('id', '!=', $employee->id)->where($employee->nik, $nik_employee)->get();
         
         $id_employee2 = Auth::user()->id_employee;
 
@@ -567,8 +568,11 @@ class ProfilController extends Controller
         $employeei->status = 0;
         $employeei->save();
         
+        $employeeTemp->status = 2;
+        $employeeTemp->save();
+         
         $status = "1";
-        $employees = DB::table('employee')->join('departemen' , 'departemen.id' , '=' , 'employee.id_departemen')->join('cabang' , 'cabang.id' , '=' , 'employee.id_cabang')->where('status' , $status)->get();                            
+                                    
         return redirect('/profile/approval');
 
     }
