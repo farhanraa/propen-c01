@@ -46,7 +46,7 @@
                                         <div class="modal-dialog">
                                           <div class="modal-content">
                                             <div class="modal-body">
-                                              <h2><strong>Terima pengajuan?</strong></h2>
+                                              <h2><strong>Terima pengajuan dari {{$employeesi->nama}} ?</strong></h2>
                                               <button type="submit" class="btn btn-success">YA</button>
                                               <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
                                             </div>
@@ -73,7 +73,7 @@
                                         <div class="modal-dialog">
                                           <div class="modal-content">
                                             <div class="modal-body">
-                                              <h2><strong>Tolak pengajuan?</strong></h2>
+                                              <h2><strong>Tolak pengajuan dari {{$employeesi->nama}} ?</strong></h2>
                                               <button type="submit" class="btn btn-danger">YA</button>
                                               <button type="button" class="btn" data-dismiss="modal">KEMBALI</button>
                                             </div>
