@@ -565,7 +565,7 @@ class ProfilController extends Controller
 
         $employee = Employee::where('id', $id_employee2)->first();
 
-        $employeeTemp = Employee::where('id','!=',$employeei->id)->where('nik_employee', $nik_employee)->first();
+        $employeeTemp = DB::table('employee')->where('id', '!=', $employee->id)->where('nik_employee', $nik_employee)->first();
 
         echo $employeeTemp->id;
 
