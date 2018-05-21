@@ -43,6 +43,7 @@
                             <th>Tanggal Awal Cuti</th>
                             <th>Tanggal Akhir Cuti</th>
                             <th>Jenis Cuti</th>
+                            <th>Sisa Cuti</th>
                             <th>Status</th>
                             <th>Detail</th>
                           </thead>
@@ -55,6 +56,7 @@
                               <td>{{ \Carbon\Carbon::parse($cuti -> tanggal_mulai)->format('d-m-Y')}}</td>
                               <td>{{ \Carbon\Carbon::parse($cuti -> tanggal_selesai)->format('d-m-Y')}} </td>
                               <td>{{ $cuti -> nama_jenis}}</td>
+                              <td>{{ $cuti -> sisa_cuti}}</td>
                               <td>
                                 @if ($cuti -> status === 'Menunggu Persetujuan HRM')
                                   <span class="label label-default">{{ $cuti -> status}}</span>
