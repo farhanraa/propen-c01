@@ -41,5 +41,25 @@ class DataKlaimTableSeeder extends Seeder
         'status'=>'Menunggu Persetujuan HRM',
         'keterangan'=>'memperbaiki kacamata',
         ]);    
+        
+        DB::table('data_klaim')->insert([
+        'id_klaim'=> '3',
+        'id_employee'=>'1',
+        'kode_data_klaim'=>'KDC003',
+        'tanggal_transaksi'=>'2017-03-12',
+        'nominal_klaim'=>'150000',
+        'status'=>'Menunggu Persetujuan HRM',
+        'keterangan'=>'memperbaiki kacamata',
+        ]);    
+        
+                DB::table('data_klaim')->insert([
+        'id_klaim'=> '3',
+        'id_employee'=>'4',
+        'kode_data_klaim'=>'KDC003',
+        'tanggal_transaksi'=>'2017-03-12',
+        'nominal_klaim'=>'150000',
+        'status'=>'Menunggu Persetujuan HRM',
+        'keterangan'=>'memperbaiki kacamata',
+        ]);    
     }
 }
